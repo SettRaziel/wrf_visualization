@@ -9,8 +9,22 @@ Current version: --
 ## Sources
 * [geocat](https://geocat.ucar.edu/pages/software.html)
 
+## Components
+As stated on the geocat home the new visualizations modules for getting wrf output are:
+* [geocat-comp](https://github.com/NCAR/geocat-comp)
+* [pyngl](https://github.com/NCAR/pyngl)
+* [pynio](https://github.com/NCAR/pynio)
+* [wrf-python](https://github.com/NCAR/wrf-python)
+
+To install and use this modules in python the suggested way from the ncar is the [conda](https://conda.io/en/latest/)
+package manager.
+
 ## Usage
-follows
+Before using the python libraries the need to be installed by the package manager. This can be done the shell script
+```
+init/<shell_script<.sh
+```
+After that the main script can be found in the bin folder, whereas the subsequent scripts are stored in the lib directory. 
 
 ## License
 see LICENSE
