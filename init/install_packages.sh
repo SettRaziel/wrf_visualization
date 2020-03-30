@@ -2,7 +2,7 @@
 # @Author: Benjamin Held
 # @Date:   2020-02-03 21:14:09
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-02-03 21:17:42
+# @Last Modified time: 2020-03-30 14:30:50
 
 # define terminal colors
 source ./terminal_color.sh
@@ -15,6 +15,7 @@ cd "${HOME}/aur_packages" || exit 1
 # getting yay and install if necessary
 git clone https://aur.archlinux.org/yay.git
 cd yay || exit 1
+git pull
 makepkg -si --noconfirm --needed
 cd .. || exit 1
 
