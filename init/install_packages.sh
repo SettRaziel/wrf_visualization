@@ -2,7 +2,7 @@
 # @Author: Benjamin Held
 # @Date:   2020-02-03 21:14:09
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-04-26 11:27:20
+# @Last Modified time: 2020-04-26 12:01:48
 
 # define terminal colors
 . ./terminal_color.sh
@@ -21,7 +21,12 @@ cd .. || exit 1
 
 # installing package manager
 printf "%b\\nInstalling required python package manager: %b\\n" "${YELLOW}" "${NC}"
-yay -S --noconfirm --needed python-conda
+yay -S --noconfirm --needed miniconda3
+
+CONDA_PATH="/opt/miniconda3/etc/profile.d/conda.sh"
+echo "[ -f ${CONDA_PATH} ] && source ${CONDA_PATH}" >> ~/.bashrc
+# check .bashrc
+cat "${HOME}/.bashrc" | grep "miniconda"
 
 # package clean up
 sudo pacman --noconfirm -Rsn $(sudo pacman -Qdtq)
