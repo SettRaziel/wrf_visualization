@@ -17,14 +17,20 @@ As stated on the geocat home the new visualizations modules for getting wrf outp
 * [wrf-python](https://github.com/NCAR/wrf-python)
 
 To install and use this modules in python the suggested way from the ncar is the [conda](https://conda.io/en/latest/)
-package manager.
+package manager. The best way to install that on arch linux is via the package `miniconda3`, which installs a minimal conda
+for local usage.
 
 ## Usage
 Before using the python libraries the need to be installed by the package manager. This can be done the shell script
 ```
 init/<shell_script>.sh
 ```
-After that the main script can be found in the bin folder, whereas the subsequent scripts are stored in the lib directory. 
+After that the main script can be found in the bin folder, whereas the subsequent scripts are stored in the lib directory.
+When running the scripts or implementing new code the corresponding profiles need to be activated:
+```
+conda activate geocat
+conda activate pyn_env
+```
 
 ## License
 see LICENSE
