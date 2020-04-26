@@ -22,7 +22,7 @@ package manager.
 ## Usage
 Before using the python libraries the need to be installed by the package manager. This can be done the shell script
 ```
-init/<shell_script<.sh
+init/<shell_script>.sh
 ```
 After that the main script can be found in the bin folder, whereas the subsequent scripts are stored in the lib directory. 
 
