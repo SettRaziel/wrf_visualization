@@ -15,8 +15,6 @@ def get_temperature_resource(tempht, dew_point):
   tempsfc_res.tiYAxisString      = "Temp at 2m"   # Y axis label.
 
   tempsfc_res.tmXBMode           = "Explicit"     # Define own tick mark labels.
-  tempsfc_res.tmXBLabelFont      = "Times-Bold"   # Change the font.
-  tempsfc_res.tmYLLabelFont      = "Times-Bold"   # Change the font.
   #tempsfc_res.tmXBValues         = taus
   #tempsfc_res.tmXBLabels         = taus
   #tempsfc_res@tmXBValues     = ticks TODO

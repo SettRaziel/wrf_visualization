@@ -23,8 +23,6 @@ def get_rainsum_resource(taus):
   rainsum_res.tmXBMode        = "Explicit"    # Define own tick mark labels.
   #rainsum_res.tmXBValues      = taus
   #rainsum_res.tmXBLabels      = taus
-  rainsum_res.tmXBLabelFont   = "Times-Bold"  # Change the font.
-  rainsum_res.tmYLLabelFont   = "Times-Bold"  # Change the font.
   rainsum_res.tmXBMinorOn     = False      # No minor tick marks.
 
   rainsum_res.tmXMajorGrid    = True
