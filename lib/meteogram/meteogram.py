@@ -6,6 +6,7 @@ import Nio
 import numpy, sys, os
 #  Import the PyNGL module names.
 import Ngl
+import math
 
 #  Main program.
 
@@ -44,6 +45,21 @@ colors = numpy.array([                                                \
                        ],'f') / 255.
 wks_type = "png"
 wks = Ngl.open_wks(wks_type,"meteogram")
+
+# calculate secondary data
+dew_point = numpy.empty(len(taus))
+rel_hum = numpy.empty(len(taus))
+
+# dew points data and relative humidity
+for i in range(len(taus)):
+  saturation_pressure = 6.1094 * math.exp((17.685 * tempht[i]) / (tempht[i] + 243.04))
+  partial_pressure = 0.622 * saturation_pressure / pressure[i]
+  rel_hum_pre = hum[i] * 100 / partial_pressure
+  rel_hum[i] = min(rel_hum_pre, 100.)
+  if (rel_hum[i] == 100.):
+    dew_point[i] = tempht[i]
+  else:
+    dew_point[i] = tempht[i] - ((100. - rel_hum[i])/ 5.0)
 
 # Create a different resource list for every plot created.
 rainsum_res = Ngl.Resources()
@@ -114,8 +130,8 @@ tempsfc_res.tmYLMaxTicks = 6
 tempsfc_res.tmXTOn             = False          # turn off the top tickmarks
 
 #tempsfc_res@trXMaxF         = taus(dimsizes(taus) - 1)   ; max value on x-axis
-#tempsfc_res.trYMaxF         = numpy.amax(tempht)+0.5
-#tempsfc_res.trYMinF         = numpy.amin(tempht)-0.5
+tempsfc_res.trYMaxF         = math.ceil(numpy.amax(tempht))
+tempsfc_res.trYMinF         = math.floor(numpy.amin(dew_point))
 
 tempsfc_res.xyLineThicknesses  = 2
 tempsfc_res.xyLineColor        =  "red"
@@ -127,9 +143,13 @@ tempsfc_res.nglMaximize     = False     # Do not maximize plot in frame
 # generate plot results
 rainsum   = Ngl.xy(wks,taus,rain_sum,rainsum_res)
 temptmsz  = Ngl.xy(wks,taus,tempht,tempsfc_res)
+tempsfc_res.xyLineColor     =  "blue"        # line color for dew point
+dewpmsz   = Ngl.xy(wks,taus,dew_point,tempsfc_res)
+
 
 Ngl.draw(rainsum)
 Ngl.draw(temptmsz)
+Ngl.draw(dewpmsz)
 Ngl.frame(wks)
 
 Ngl.end()
