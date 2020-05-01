@@ -26,11 +26,12 @@ Before using the python libraries the need to be installed by the package manage
 init/<shell_script>.sh
 ```
 After that the main script can be found in the bin folder, whereas the subsequent scripts are stored in the lib directory.
-When running the scripts or implementing new code the corresponding profiles need to be activated:
+When running the scripts or implementing new code the corresponding profiles should to be activated if the script execution fails:
 ```
 conda activate geocat
 conda activate pyn_env
 ```
+Writing an testing code for the meteogram does only required `pyn_env` to be activated.
 
 ## License
 see LICENSE
