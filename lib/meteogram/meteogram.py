@@ -47,10 +47,10 @@ wks_type = "png"
 wks = Ngl.open_wks(wks_type,"meteogram")
 
 # calculate secondary data
+# dew points data and relative humidity
 dew_point = numpy.empty(len(taus))
 rel_hum = numpy.empty(len(taus))
 
-# dew points data and relative humidity
 for i in range(len(taus)):
   saturation_pressure = 6.1094 * math.exp((17.685 * tempht[i]) / (tempht[i] + 243.04))
   partial_pressure = 0.622 * saturation_pressure / pressure[i]
@@ -61,12 +61,29 @@ for i in range(len(taus)):
   else:
     dew_point[i] = tempht[i] - ((100. - rel_hum[i])/ 5.0)
 
+# 3 hour rain sums
+rain3h_time = numpy.empty(int(taus[-1] / 3))
+rain3h_time[0] = 3
+rain3h_sum = numpy.empty(len(rain3h_time))
+
+j = 0
+rain_prev = 0.0
+rain_act = rain_sum[0]
+for i in range(len(taus) - 1):
+  if (taus[i] > rain3h_time[j]):
+      rain_prev = rain_act
+      rain_act = rain_sum[i]
+      rain3h_sum[j] = rain_act - rain_prev
+      j = j + 1
+      rain3h_time[j] = rain3h_time[j-1] + 3
+rain3h_sum[-1] = rain_act - rain_prev
+
 # Create a different resource list for every plot created.
 rainsum_res = Ngl.Resources()
+rain3h_res  = Ngl.Resources()
 tempsfc_res = Ngl.Resources()
 
 # rain sum resources
-rainsum_res.nglFrame        = False
 rainsum_res.vpXF            = 0.15   # The left side of the box
 rainsum_res.vpYF            = 0.3   # The top side of the plot box
 rainsum_res.vpWidthF        = 0.75   # The Width of the plot box
@@ -76,15 +93,15 @@ rainsum_res.xyYIrregularPoints = [ 0, 1, 2, 3, 4, 8, 16, 35 ]
 rainsum_res.trYAxisType     = 0.0    # min value on y-axis
 rainsum_res.trYMaxF         = 35    # max value on y-axis
 rainsum_res.trXMinF         = 0.0
-#rainsum_res.trXMaxF         = taus(dimsizes(taus) - 1)   ; max value on x-axis
+rainsum_res.trXMaxF         = taus[-1]   # max value on x-axis
 
 rainsum_res.tiXAxisString   = ""            # X axes label.
 rainsum_res.tiYAxisFontHeightF = 0.015          # Y axes font height.
 rainsum_res.tiYAxisString   = "3hr rain total"  # Y axis label.
 rainsum_res.tmXTOn          = False      # turn off the top tickmarks
 rainsum_res.tmXBMode        = "Explicit"    # Define own tick mark labels.
-#rainsum_res.tmXBValues     = taus
-#rainsum_res.tmXBLabels     = taus
+#rainsum_res.tmXBValues      = taus
+#rainsum_res.tmXBLabels      = taus
 rainsum_res.tmXBLabelFont   = "Times-Bold"  # Change the font.
 rainsum_res.tmYLLabelFont   = "Times-Bold"  # Change the font.
 rainsum_res.tmXBMinorOn     = False      # No minor tick marks.
@@ -98,12 +115,27 @@ rainsum_res.tmYLMinorValues = [ 1, 3, 5, 20 ]
 
 rainsum_res.tmYMajorGrid   = True
 rainsum_res.xyLineThicknesses = 2          # increase line thickness
-rainsum_res.gsnDraw         = False        # Don't draw individual plot.
-rainsum_res.gsnFrame        = False        # Don't advance frame.
-rainsum_res.gsnYRefLine     = 0.0             # create a reference line
+rainsum_res.nglYRefLine     = 0.0             # create a reference line
 rainsum_res.xyLineColor     =  "blue"       # set line color
 
-rainsum_res.nglMaximize     = False     # Do not maximize plot in frame
+rainsum_res.nglDraw         = False     # Don't draw individual plot.
+rainsum_res.nglFrame        = False     # Don't advance frame.
+rainsum_res.nglMaximize     = False     # Do not maximize plot in frame  
+
+# 3 hour rain sum bar charts
+rain3h_res.trXMaxF         = taus[-1]
+rain3h_res.trYMinF         = -.1  # min value on y-axis
+
+rain3h_res.tiXAxisString  = ""            # turn off x-axis string
+rain3h_res.tmXTOn         = False         # turn off the top tickmarks
+rain3h_res.xyLineThicknesses = 2          # increase line thickness
+rain3h_res.gsnAboveYRefLineColor = "green"    # above ref line fill green
+rain3h_res.gsnXYBarChart   = True             # turn on bar chart
+rain3h_res.tmYLMaxTicks = 6
+
+rain3h_res.nglDraw         = False     # Don't draw individual plot.
+rain3h_res.nglFrame        = False     # Don't advance frame.
+rain3h_res.nglMaximize     = False     # Do not maximize plot in frame 
 
 # ground temperature resource
 tempsfc_res.vpXF            = 0.15   # The left side of the box
@@ -142,14 +174,15 @@ tempsfc_res.nglMaximize     = False     # Do not maximize plot in frame
 
 # generate plot results
 rainsum   = Ngl.xy(wks,taus,rain_sum,rainsum_res)
+rainhist  = Ngl.xy(wks,rain3h_time,rain3h_sum,rain3h_res)
 temptmsz  = Ngl.xy(wks,taus,tempht,tempsfc_res)
 tempsfc_res.xyLineColor     =  "blue"        # line color for dew point
 dewpmsz   = Ngl.xy(wks,taus,dew_point,tempsfc_res)
 
-
+Ngl.overlay(rainsum, rainhist)
 Ngl.draw(rainsum)
+Ngl.overlay(temptmsz, dewpmsz)
 Ngl.draw(temptmsz)
-Ngl.draw(dewpmsz)
 Ngl.frame(wks)
 
 Ngl.end()
