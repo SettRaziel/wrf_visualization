@@ -12,6 +12,7 @@ def get_pressure_resource(taus, pressure):
   pres_res.trXMaxF         = taus[-1]          # max value on x-axis
   pres_res.trYMaxF         = numpy.amax(pressure)+1   # max value on y-axis
   pres_res.trYMinF         = numpy.amin(pressure)-1   # min value on y-axis
+  pres_res.tiYAxisFontHeightF = 0.015          # Y axes font height.
   #pres_res.tiMainString    = str_sub_str(title,"_"," ")
 
   pres_res.tiXAxisString  = ""            # turn off x-axis string

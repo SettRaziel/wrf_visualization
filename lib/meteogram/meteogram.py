@@ -7,7 +7,7 @@ import numpy, sys, os
 #  Import the PyNGL module names.
 import Ngl
 import math
-import temperature_lib, rain_lib, pressure_lib
+import temperature_lib, rain_lib, pressure_lib, wind_lib
 
 #  Read in the data variables from the TS file
 file = "Han.d01.TS"
@@ -68,7 +68,7 @@ rain3h_sum = numpy.empty(len(rain3h_time))
 j = 0
 rain_prev = 0.0
 rain_act = rain_sum[0]
-for i in range(len(taus) - 1):
+for i in range(len(taus)):
   if (taus[i] > rain3h_time[j]):
       rain_prev = rain_act
       rain_act = rain_sum[i]
@@ -77,8 +77,15 @@ for i in range(len(taus) - 1):
       rain3h_time[j] = rain3h_time[j-1] + 3
 rain3h_sum[-1] = rain_act - rain_prev
 
+# wind speed
+wind_speed = wind_lib.calculate_windspeed(u, v, len(taus))
+
+# generate measurand resources
 # pressure resource
 pres_res = pressure_lib.get_pressure_resource(taus, pressure)
+
+# wind speed recource
+wind_res = wind_lib.get_windspeed_resource(taus, wind_speed)
 
 # rain sum resources
 rainsum_res = rain_lib.get_rainsum_resource(taus)
@@ -91,6 +98,7 @@ tempsfc_res = temperature_lib.get_temperature_resource(tempht, dew_point)
 
 # generate plot results
 pressmsz  = Ngl.xy(wks,taus,pressure,pres_res)
+windmsz   = Ngl.xy(wks,taus,wind_speed,wind_res)
 rainsum   = Ngl.xy(wks,taus,rain_sum,rainsum_res)
 rainhist  = Ngl.xy(wks,rain3h_time,rain3h_sum,rain3h_res)
 temptmsz  = Ngl.xy(wks,taus,tempht,tempsfc_res)
@@ -100,6 +108,7 @@ dewpmsz   = Ngl.xy(wks,taus,dew_point,tempsfc_res)
 Ngl.draw(pressmsz)
 Ngl.overlay(rainsum, rainhist)
 Ngl.draw(rainsum)
+Ngl.draw(windmsz)
 Ngl.overlay(temptmsz, dewpmsz)
 Ngl.draw(temptmsz)
 Ngl.frame(wks)
