@@ -37,3 +37,14 @@ def get_temperature_resource(tempht, dew_point):
   tempsfc_res.nglFrame        = False     # Don't advance frame.
   tempsfc_res.nglMaximize     = False     # Do not maximize plot in frame
   return tempsfc_res
+
+# function to calculate the dewpoint from the meteogram data
+def calculate_dewpoint(temperature, relative_humidity, data_size):
+  dew_point = numpy.empty(data_size)
+
+  for i in range(data_size):
+    if (relative_humidity[i] == 100.):
+      dew_point[i] = temperature[i]
+    else:
+      dew_point[i] = temperature[i] - ((100. - relative_humidity[i])/ 5.0)
+  return dew_point

@@ -33,6 +33,7 @@ def get_windspeed_resource(taus, wind_speed):
   wind_res.nglMaximize     = False     # Do not maximize plot in frame
   return wind_res
 
+# function to calculate the wind speed from the two dimensional components u and v
 def calculate_windspeed(u, v, data_size):
   wind_speed = numpy.empty(data_size)
 

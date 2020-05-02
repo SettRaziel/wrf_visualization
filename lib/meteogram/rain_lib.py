@@ -66,3 +66,23 @@ def get_3hrain_resource(rain3h_time):
   rain3h_res.nglFrame        = False     # Don't advance frame.
   rain3h_res.nglMaximize     = False     # Do not maximize plot in frame
   return rain3h_res
+
+# function to calculate the values and time stamps for the 3 hour rain sums
+def calculate_3hrain_data(rain_sum, taus):
+  rain3h_time = numpy.empty(int(taus[-1] / 3))
+  rain3h_time[0] = 3
+  rain3h_sum = numpy.empty(len(rain3h_time))
+
+  j = 0
+  rain_prev = 0.0
+  rain_act = rain_sum[0]
+  for i in range(len(taus)):
+    if (taus[i] > rain3h_time[j]):
+        rain_prev = rain_act
+        rain_act = rain_sum[i]
+        rain3h_sum[j] = rain_act - rain_prev
+        j = j + 1
+        rain3h_time[j] = rain3h_time[j-1] + 3
+  rain3h_sum[-1] = rain_act - rain_prev
+
+  return rain3h_sum, rain3h_time

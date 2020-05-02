@@ -7,7 +7,7 @@ import numpy, sys, os
 #  Import the PyNGL module names.
 import Ngl
 import math
-import temperature_lib, rain_lib, pressure_lib, wind_lib
+import temperature_lib, rain_lib, pressure_lib, wind_lib, humidity_lib
 
 #  Read in the data variables from the TS file
 file = "Han.d01.TS"
@@ -47,35 +47,11 @@ wks = Ngl.open_wks(wks_type,"meteogram")
 
 # calculate secondary data
 # dew points data and relative humidity
-dew_point = numpy.empty(len(taus))
-rel_hum = numpy.empty(len(taus))
-
-for i in range(len(taus)):
-  saturation_pressure = 6.1094 * math.exp((17.685 * tempht[i]) / (tempht[i] + 243.04))
-  partial_pressure = 0.622 * saturation_pressure / pressure[i]
-  rel_hum_pre = hum[i] * 100 / partial_pressure
-  rel_hum[i] = min(rel_hum_pre, 100.)
-  if (rel_hum[i] == 100.):
-    dew_point[i] = tempht[i]
-  else:
-    dew_point[i] = tempht[i] - ((100. - rel_hum[i])/ 5.0)
+rel_hum = humidity_lib.calculate_relative_humidity(hum, tempht, pressure, len(taus))
+dew_point = temperature_lib.calculate_dewpoint(tempht, rel_hum, len(taus))
 
 # 3 hour rain sums
-rain3h_time = numpy.empty(int(taus[-1] / 3))
-rain3h_time[0] = 3
-rain3h_sum = numpy.empty(len(rain3h_time))
-
-j = 0
-rain_prev = 0.0
-rain_act = rain_sum[0]
-for i in range(len(taus)):
-  if (taus[i] > rain3h_time[j]):
-      rain_prev = rain_act
-      rain_act = rain_sum[i]
-      rain3h_sum[j] = rain_act - rain_prev
-      j = j + 1
-      rain3h_time[j] = rain3h_time[j-1] + 3
-rain3h_sum[-1] = rain_act - rain_prev
+rain3h_sum, rain3h_time = rain_lib.calculate_3hrain_data(rain_sum, taus)
 
 # wind speed
 wind_speed = wind_lib.calculate_windspeed(u, v, len(taus))
