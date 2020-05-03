@@ -6,5 +6,6 @@ import comp_lib
 filename = "wrfout_d01_2020-05-02_00:00:00"
 
 wrf_data = Nio.open_file(filename+".nc")  # Must add ".nc" suffix for Nio.open_file
-                              
+
+# plot composite with temperature, pressure and wind                              
 comp_lib.print_comp_for_timestamp(wrf_data)
