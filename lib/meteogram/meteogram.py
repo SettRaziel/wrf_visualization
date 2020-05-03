@@ -60,6 +60,9 @@ wind_speed = wind_lib.calculate_windspeed(u, v, len(taus))
 # pressure resource
 pres_res = pressure_lib.get_pressure_resource(taus, pressure)
 
+# relative humidity
+relhum_res = humidity_lib.get_relhumidity_resource()
+
 # wind speed recource
 wind_res = wind_lib.get_windspeed_resource(taus, wind_speed)
 
@@ -74,6 +77,7 @@ tempsfc_res = temperature_lib.get_temperature_resource(tempht, dew_point)
 
 # generate plot results
 pressmsz  = Ngl.xy(wks,taus,pressure,pres_res)
+relhummsz = Ngl.xy(wks,taus,rel_hum,relhum_res)
 windmsz   = Ngl.xy(wks,taus,wind_speed,wind_res)
 rainsum   = Ngl.xy(wks,taus,rain_sum,rainsum_res)
 rainhist  = Ngl.xy(wks,rain3h_time,rain3h_sum,rain3h_res)
@@ -82,6 +86,7 @@ tempsfc_res.xyLineColor     =  "blue"        # line color for dew point
 dewpmsz   = Ngl.xy(wks,taus,dew_point,tempsfc_res)
 
 Ngl.draw(pressmsz)
+Ngl.draw(relhummsz)
 Ngl.overlay(rainsum, rainhist)
 Ngl.draw(rainsum)
 Ngl.draw(windmsz)
