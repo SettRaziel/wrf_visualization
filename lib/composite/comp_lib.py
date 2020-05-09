@@ -44,7 +44,7 @@ def print_comp_for_timestamp(wrf_data):
   t_res.pmLabelBarHeightF   = 0.08
   t_res.pmLabelBarWidthF    = 0.65
   
-  t_res.lbTitleString       = "%s (%s)" % (temperature.description,temperature.units)
+  t_res.lbTitleString       = "%s in (%s)" % (temperature.description,temperature.units)
   t_res.lbOrientation       = "horizontal"
   t_res.lbTitleFontHeightF  = 0.015
   t_res.lbLabelFontHeightF  = 0.015                  

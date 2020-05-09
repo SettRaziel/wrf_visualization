@@ -1,7 +1,7 @@
 from __future__ import print_function
 import numpy, Nio, Ngl, os, sys
 from wrf import getvar, get_pyngl
-import comp_lib, rain_lib
+import comp_lib, rain_lib, thunderstorm_lib
 
 filename = "wrfout_d01_2020-05-02_03:00:00"
 
@@ -12,4 +12,8 @@ comp_lib.print_comp_for_timestamp(wrf_data)
 
 # plot rainsum and pressure
 rain_lib.print_total_rainsum_for_timestamp(wrf_data)
+
+# plot cape and pressure
+thunderstorm_lib.print_cape_for_timestamp(wrf_data)
+
 Ngl.end()

@@ -3,6 +3,7 @@ import numpy, Nio, Ngl, os, sys
 from wrf import getvar, get_pyngl, smooth2d, latlon_coords, to_np
 import pressure_lib
 
+# function to generate the output image for the given timestep
 def print_total_rainsum_for_timestamp(wrf_data):
   slp = pressure_lib.get_sea_level_pressure(wrf_data)
   rain_exp = getvar(wrf_data,"RAINNC")
@@ -28,8 +29,8 @@ def print_total_rainsum_for_timestamp(wrf_data):
                                              [  0,128,  0], [  0,100,  0], [255,255,  0], \
                                              [255,165,  0], [255, 69,  0], [139,  0,139], \
                                              [  0,  0, 255] ],'f') / 255.
-  rr_res.cnLevels            = numpy.array([ .1, .2, .4, .8, 1.6, 3.2, 6.4,  \
-                                             12.8, 25.6, 51.2, 102.4, 204.8 ])
+  rr_res.cnLevels            = numpy.array( [ .1, .2, .4, .8, 1.6, 3.2, 6.4,  \
+                                              12.8, 25.6, 51.2, 102.4, 204.8 ])
   
   rr_res.mpGeophysicalLineColor = "black"
   rr_res.mpGeophysicalLineThicknessF = 5
@@ -39,7 +40,7 @@ def print_total_rainsum_for_timestamp(wrf_data):
   rr_res.pmLabelBarHeightF   = 0.08
   rr_res.pmLabelBarWidthF    = 0.65
   
-  rr_res.lbTitleString       = "Total rainsum in [mm]"
+  rr_res.lbTitleString       = "Total rainsum in (mm)"
   rr_res.lbOrientation       = "horizontal"
   rr_res.lbTitleFontHeightF  = 0.015
   rr_res.lbLabelFontHeightF  = 0.015                  
