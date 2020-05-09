@@ -3,12 +3,6 @@ import numpy, Nio, Ngl, os, sys
 from wrf import getvar, get_pyngl, smooth2d, latlon_coords, to_np
 import pressure_lib
 
-# function to retrieve the sea level pressure from the input data
-def get_sea_level_pressure(wrf_data):
-  slp = getvar(wrf_data,"slp")                    # sea level pressure (2D)
-  slp = smooth2d(slp, 3)                          # Smooth sea level pressure
-  return slp
-
 # function to retrieve the latitude wind component from the input data
 def get_latitude_wind(wrf_data):
   u10 = getvar(wrf_data,"U10")                    # Get 10m u component
@@ -21,7 +15,7 @@ def get_longitude_wind(wrf_data):
 
 # function to generate the output image for the given timestep
 def print_comp_for_timestamp(wrf_data):
-  slp = get_sea_level_pressure(wrf_data)
+  slp = pressure_lib.get_sea_level_pressure(wrf_data)
   temperature = getvar(wrf_data,"tc")
   u = get_latitude_wind(wrf_data)
   v = get_longitude_wind(wrf_data)
@@ -93,4 +87,4 @@ def print_comp_for_timestamp(wrf_data):
   Ngl.maximize_plot(wks_comp, tplot)
   Ngl.draw(tplot)
   Ngl.frame(wks_comp)
-  Ngl.end()
+  Ngl.delete_wks(wks_comp) # delete currently used workstation

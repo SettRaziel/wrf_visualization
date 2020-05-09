@@ -1,4 +1,11 @@
 import Ngl
+from wrf import getvar, smooth2d
+
+# function to retrieve the sea level pressure from the input data
+def get_sea_level_pressure(wrf_data):
+  slp = getvar(wrf_data,"slp")                    # sea level pressure (2D)
+  slp = smooth2d(slp, 3)                          # Smooth sea level pressure
+  return slp
 
 # function to create the plot resource for the air pressure plot of the composites
 def get_pressure_resource(lat, lon):
