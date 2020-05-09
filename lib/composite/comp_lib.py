@@ -1,6 +1,7 @@
 from __future__ import print_function
 import numpy, Nio, Ngl, os, sys
 from wrf import getvar, get_pyngl, smooth2d, latlon_coords, to_np
+import pressure_lib
 
 # function to retrieve the sea level pressure from the input data
 def get_sea_level_pressure(wrf_data):
@@ -59,20 +60,7 @@ def print_comp_for_timestamp(wrf_data):
   t_res.tfDoNDCOverlay      = True                   # required for native projection
 
   # pressure
-  p_res = Ngl.Resources()
-  p_res.nglDraw             =  False                 # don't draw plot
-  p_res.nglFrame            =  False                 # don't advance frame
-  
-  p_res.cnHighLabelsOn      = True                   # Set labels
-  p_res.cnLowLabelsOn       = True
-  p_res.cnLineThicknessF    = 2
-  p_res.cnMonoLineColor     = True                     
-  p_res.cnLineColor         = "gray50"
-  p_res.cnLineLabelInterval = 4
-  p_res.cnInfoLabelString   = "pressure (hPa) from $CMN$ to $CMX$ by $CIU$ hPa"
-  
-  p_res.sfXArray            =  lon_normal
-  p_res.sfYArray            =  lat_normal
+  p_res = pressure_lib.get_pressure_resource(lat_normal, lon_normal)
   
   # wind
   uv_res = Ngl.Resources()
