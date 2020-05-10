@@ -14,7 +14,7 @@ def get_longitude_wind(wrf_data):
   return v10
 
 # function to generate the output image for the given timestep
-def print_comp_for_timestamp(wrf_data, timestring):
+def print_comp_for_timestamp(wrf_data, timestamp):
   slp = pressure_lib.get_sea_level_pressure(wrf_data)
   temperature = getvar(wrf_data,"tc")
   u = get_latitude_wind(wrf_data)
@@ -49,7 +49,7 @@ def print_comp_for_timestamp(wrf_data, timestring):
   t_res.lbTitleFontHeightF  = 0.015
   t_res.lbLabelFontHeightF  = 0.015                  
   
-  t_res.tiMainString        = "Composite (%s)" % timestring
+  t_res.tiMainString        = "Composite (%s)" % timestamp.strftime("%b %d %Y %HUTC")
   t_res.trGridType          = "TriangularMesh"       # can speed up plotting.
   t_res.tfDoNDCOverlay      = True                   # required for native projection
 
@@ -75,7 +75,7 @@ def print_comp_for_timestamp(wrf_data, timestring):
   wk_res = Ngl.Resources()
   wk_res.wkWidth = 2500
   wk_res.wkHeight = 2500
-  wks_comp = Ngl.open_wks("png","comp_test", wk_res)
+  wks_comp = Ngl.open_wks("png","comp_%s" % timestamp.strftime("%Y_%m_%d_%H"), wk_res)
 
   # creating plots for the measurands
   tplot = Ngl.contour_map(wks_comp,temperature[0,:,:],t_res)
