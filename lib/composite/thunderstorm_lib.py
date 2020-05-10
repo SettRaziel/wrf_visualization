@@ -4,7 +4,7 @@ from wrf import getvar, get_pyngl, smooth2d, latlon_coords, to_np
 import pressure_lib
 
 # function to generate the output image for the given timestep
-def print_cape_for_timestamp(wrf_data):
+def print_cape_for_timestamp(wrf_data, timestring):
   slp = pressure_lib.get_sea_level_pressure(wrf_data)
   cinfo = getvar(wrf_data,"cape_2d", missing=0.0)
   cape = cinfo[0,:,:].fillna(0)
@@ -42,7 +42,7 @@ def print_cape_for_timestamp(wrf_data):
   cape_res.lbTitleFontHeightF  = 0.015
   cape_res.lbLabelFontHeightF  = 0.015                  
   
-  cape_res.tiMainString        = "Thunderstorm probability (Timestamp)"
+  cape_res.tiMainString        = "Thunderstorm probability (%s)" % timestring
   cape_res.trGridType          = "TriangularMesh"       # can speed up plotting.
   cape_res.tfDoNDCOverlay      = True                   # required for native projection
 

@@ -4,7 +4,7 @@ from wrf import getvar, get_pyngl, smooth2d, latlon_coords, to_np
 import pressure_lib
 
 # function to generate the output image for the given timestep
-def print_total_rainsum_for_timestamp(wrf_data):
+def print_total_rainsum_for_timestamp(wrf_data, timestring):
   slp = pressure_lib.get_sea_level_pressure(wrf_data)
   rain_exp = getvar(wrf_data,"RAINNC")
   rain_con = getvar(wrf_data,"RAINC")
@@ -45,7 +45,7 @@ def print_total_rainsum_for_timestamp(wrf_data):
   rr_res.lbTitleFontHeightF  = 0.015
   rr_res.lbLabelFontHeightF  = 0.015                  
   
-  rr_res.tiMainString        = "Total rainsum (Timestamp)"
+  rr_res.tiMainString        = "Total rainsum (%s)" % timestring
   rr_res.trGridType          = "TriangularMesh"       # can speed up plotting.
   rr_res.tfDoNDCOverlay      = True                   # required for native projection
 
