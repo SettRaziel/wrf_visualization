@@ -52,6 +52,7 @@ def create_meteogram_for(filename):
   wks = Ngl.open_wks(wks_type,"meteogram_"+filename.split(".")[0])
 
   # calculate secondary data
+  count_xdata = taus[-1]
   # dew points data and relative humidity
   rel_hum = humidity_lib.calculate_relative_humidity(hum, tempht, pressure, len(taus))
   dew_point = temperature_lib.calculate_dewpoint(tempht, rel_hum, len(taus))
@@ -64,22 +65,22 @@ def create_meteogram_for(filename):
 
   # generate measurand resources
   # pressure resource
-  pres_res = pressure_lib.get_pressure_resource(taus, pressure)
+  pres_res = pressure_lib.get_pressure_resource(count_xdata, pressure)
 
   # relative humidity
-  relhum_res = humidity_lib.get_relhumidity_resource()
+  relhum_res = humidity_lib.get_relhumidity_resource(count_xdata)
 
   # wind speed recource
-  wind_res = wind_lib.get_windspeed_resource(taus, wind_speed)
+  wind_res = wind_lib.get_windspeed_resource(count_xdata, wind_speed)
 
   # rain sum resources
-  rainsum_res = rain_lib.get_rainsum_resource(taus)
+  rainsum_res = rain_lib.get_rainsum_resource(count_xdata)
 
   # 3 hour rain sum bar charts
   rain3h_res = rain_lib.get_3hrain_resource(rain3h_time)
 
   # ground temperature resource
-  tempsfc_res = temperature_lib.get_temperature_resource(tempht, dew_point)
+  tempsfc_res = temperature_lib.get_temperature_resource(count_xdata, tempht, dew_point)
 
   # generate plot results
   pressmsz  = Ngl.xy(wks,taus,pressure,pres_res)

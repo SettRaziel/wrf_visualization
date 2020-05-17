@@ -3,7 +3,7 @@ import math
 import numpy
 
 # function to create the plot resource for the rain sum plot of the meteogram
-def get_rainsum_resource(taus):
+def get_rainsum_resource(count_xdata):
   rainsum_res = Ngl.Resources()
   rainsum_res.vpXF            = 0.15   # The left side of the box
   rainsum_res.vpYF            = 0.3   # The top side of the plot box
@@ -14,7 +14,7 @@ def get_rainsum_resource(taus):
   rainsum_res.trYAxisType     = 0.0    # min value on y-axis
   rainsum_res.trYMaxF         = 35    # max value on y-axis
   rainsum_res.trXMinF         = 0.0
-  rainsum_res.trXMaxF         = taus[-1]   # max value on x-axis
+  rainsum_res.trXMaxF         = count_xdata   # max value on x-axis
 
   rainsum_res.tiXAxisString   = ""            # X axes label.
   rainsum_res.tiYAxisFontHeightF = 0.015          # Y axes font height.

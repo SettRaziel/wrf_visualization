@@ -3,7 +3,7 @@ import math
 import numpy
 
 # function to create the plot resource for the relative humidity plot of the meteogram
-def get_relhumidity_resource():
+def get_relhumidity_resource(count_xdata):
   relhum_res = Ngl.Resources()
   relhum_res.vpXF            = 0.15   # The left side of the box
   relhum_res.vpYF            = 0.75   # The top side of the plot box
@@ -29,7 +29,7 @@ def get_relhumidity_resource():
   relhum_res.tmYLMaxTicks = 6
   relhum_res.tmXTOn             = False          # turn off the top tickmarks
 
-  #relhum_res@trXMaxF         = taus(dimsizes(taus) - 1)   ; max value on x-axis
+  relhum_res.trXMaxF         = count_xdata   # max value on x-axis
   relhum_res.trYMaxF         = 100
   relhum_res.trYMinF         = 0.0
 
