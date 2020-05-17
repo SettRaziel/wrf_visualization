@@ -65,7 +65,7 @@ def create_meteogram_for(filename):
 
   # generate measurand resources
   # pressure resource
-  pres_res = pressure_lib.get_pressure_resource(count_xdata, pressure)
+  pres_res = pressure_lib.get_pressure_resource(count_xdata, pressure, head.split(" ")[0])
 
   # relative humidity
   relhum_res = humidity_lib.get_relhumidity_resource(count_xdata)

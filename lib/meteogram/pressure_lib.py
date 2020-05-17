@@ -3,7 +3,7 @@ import math
 import numpy
 
 # function to create the plot resource for the air pressure plot of the meteogram
-def get_pressure_resource(count_xdata, pressure):
+def get_pressure_resource(count_xdata, pressure, title):
   pres_res = Ngl.Resources()
   pres_res.vpXF            = 0.15   # The left side of the box location
   pres_res.vpYF            = 0.9    # The top side of the plot box loc
@@ -13,7 +13,7 @@ def get_pressure_resource(count_xdata, pressure):
   pres_res.trYMaxF         = numpy.amax(pressure)+1   # max value on y-axis
   pres_res.trYMinF         = numpy.amin(pressure)-1   # min value on y-axis
   pres_res.tiYAxisFontHeightF = 0.015          # Y axes font height.
-  #pres_res.tiMainString    = str_sub_str(title,"_"," ")
+  pres_res.tiMainString    = title
 
   pres_res.tiXAxisString  = ""            # turn off x-axis string
   pres_res.tiYAxisString  = "p (hPa)"     # set y-axis string
