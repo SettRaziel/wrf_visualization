@@ -40,3 +40,12 @@ def calculate_windspeed(u, v, data_size):
   for i in range(data_size):
     wind_speed[i] = math.sqrt(u[i]**2 + v[i]**2)
   return wind_speed
+
+# function to calculate the wind speed from the two dimensional components u and v
+def calculate_winddirection(u, v, data_size):
+  wind_direction = numpy.empty(data_size)
+  radToDeg = 180.0/(math.atan(1)*4.0)
+
+  for i in range(data_size):
+    wind_direction[i] = math.atan2(u[i], v[i]) * radToDeg + 180.
+  return wind_direction
