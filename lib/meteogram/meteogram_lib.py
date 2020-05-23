@@ -23,7 +23,7 @@ def read_file(file):
   return head, input
 
 # function to create the meteogram for the given location
-def create_meteogram_for(filename):
+def create_meteogram_for(filename, timestamp):
   with open(filename) as f:
     head, input = read_file(f)
 
@@ -65,7 +65,8 @@ def create_meteogram_for(filename):
 
   # generate measurand resources
   # pressure resource
-  pres_res = pressure_lib.get_pressure_resource(count_xdata, pressure, head.split(" ")[0])
+  headline = head.split(" ")[0] + " (%s)" % timestamp.strftime("%b %d %Y %HUTC")
+  pres_res = pressure_lib.get_pressure_resource(count_xdata, pressure, headline)
 
   # relative humidity
   relhum_res = humidity_lib.get_relhumidity_resource(count_xdata)

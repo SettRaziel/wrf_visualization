@@ -1,12 +1,19 @@
 from __future__ import print_function
-import os
+import os, sys
 #  Import the PyNGL module names.
 import Ngl
+import datetime
 import meteogram_lib
+
+if (len(sys.argv) != 2):
+  raise ValueError("Incorrect number of arguments, 1 argument required")
+
+# read timestamp from the first script argument
+timestamp = datetime.datetime.strptime(sys.argv[1], "%Y-%m-%d %H:%M")
 
 #  Iterate over all files in the directory an print meteogram for each *.TS file
 for filename in os.listdir("."):
   if filename.endswith(".TS"):  
-    meteogram_lib.create_meteogram_for(filename)
+    meteogram_lib.create_meteogram_for(filename, timestamp)
 
 Ngl.end()
