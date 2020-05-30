@@ -15,13 +15,8 @@ def get_temperature_resource(count_xdata, tempht, dew_point):
   tempsfc_res.tiYAxisString      = "Temp at 2m"   # Y axis label.
 
   tempsfc_res.tmXBMode           = "Explicit"     # Define own tick mark labels.
-  #tempsfc_res.tmXBValues         = taus
-  #tempsfc_res.tmXBLabels         = taus
-  #tempsfc_res@tmXBValues     = ticks TODO
-  #tempsfc_res@tmXBLabels     = time_array TODO
   tempsfc_res.tmXMajorGrid       = True
   tempsfc_res.tmXMajorGridLineDashPattern = 2
-  #tempsfc_res@tmXBMinorValues = sticks TODO
   tempsfc_res.tmYMajorGrid = True
   tempsfc_res.tmYLMaxTicks = 6
   tempsfc_res.tmXTOn             = False          # turn off the top tickmarks

@@ -18,9 +18,6 @@ def get_windspeed_resource(count_xdata, wind_speed):
   wind_res.tiYAxisFontHeightF = 0.015          # Y axes font height.
   wind_res.tmXTOn         = False         # turn off the top tickmarks
   wind_res.tmXBMode       = "Explicit"
-  #wind_res.tmXBValues     = ticks
-  #wind_res.tmXBLabels     = time_array
-  #wind_res.tmXBMinorValues = sticks
   wind_res.tmXMajorGrid = True
   wind_res.tmXMajorGridLineDashPattern = 2
   wind_res.tmYLMaxTicks = 6

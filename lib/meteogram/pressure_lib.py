@@ -19,9 +19,6 @@ def get_pressure_resource(count_xdata, pressure, title):
   pres_res.tiYAxisString  = "p (hPa)"     # set y-axis string
   pres_res.tmXTOn         = False         # turn off the top tickmarks
   pres_res.tmXBMode       = "Explicit"
-  #pres_res.tmXBValues     = ticks
-  #pres_res.tmXBLabels     = time_array
-  #pres_res.tmXBMinorValues = sticks
   pres_res.tmXMajorGrid = True
   pres_res.tmXMajorGridLineDashPattern = 2
   pres_res.tmYLMaxTicks = 6

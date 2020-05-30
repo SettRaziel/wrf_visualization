@@ -18,13 +18,8 @@ def get_relhumidity_resource(count_xdata):
   relhum_res.tiYAxisString      = "rel. humidity"   # Y axis label.
 
   relhum_res.tmXBMode           = "Explicit"     # Define own tick mark labels.
-  #relhum_res.tmXBValues         = taus
-  #relhum_res.tmXBLabels         = taus
-  #relhum_res@tmXBValues     = ticks TODO
-  #relhum_res@tmXBLabels     = time_array TODO
   relhum_res.tmXMajorGrid       = True
   relhum_res.tmXMajorGridLineDashPattern = 2
-  #relhum_res@tmXBMinorValues = sticks TODO
   relhum_res.tmYMajorGrid = True
   relhum_res.tmYLMaxTicks = 6
   relhum_res.tmXTOn             = False          # turn off the top tickmarks
