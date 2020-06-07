@@ -86,6 +86,9 @@ def create_meteogram_for(filename, timestamp):
   # wind speed
   wind_speed = wind_lib.calculate_windspeed(u, v, len(taus))
 
+  # wind direction
+  wind_direction = wind_lib.calculate_winddirection(u, v, len(taus))
+
   # generate measurand resources
   # pressure resource
   headline = head.split(" ")[0] + " (%s)" % timestamp.strftime("%b %d %Y %HUTC")
@@ -106,6 +109,12 @@ def create_meteogram_for(filename, timestamp):
   wind_res.tmXBMinorValues = numpy.array(sec_hours)
   wind_res.tmXBLabels = labels
 
+  # wind direction recource
+  direction_res = wind_lib.get_winddirection_resource(count_xdata, wind_speed)
+  direction_res.tmXBValues = numpy.array(main_hours)
+  direction_res.tmXBMinorValues = numpy.array(sec_hours)
+  direction_res.tmXBLabels = labels
+
   # rain sum resources
   rainsum_res = rain_lib.get_rainsum_resource(count_xdata)
   rainsum_res.tmXBValues = numpy.array(main_hours)
@@ -125,6 +134,7 @@ def create_meteogram_for(filename, timestamp):
   pressmsz  = Ngl.xy(wks,taus,pressure,pres_res)
   relhummsz = Ngl.xy(wks,taus,rel_hum,relhum_res)
   windmsz   = Ngl.xy(wks,taus,wind_speed,wind_res)
+  dirmsz    = Ngl.xy(wks,taus,wind_direction,direction_res)
   rainsum   = Ngl.xy(wks,taus,rain_sum,rainsum_res)
   rainhist  = Ngl.xy(wks,rain3h_time,rain3h_sum,rain3h_res)
   temptmsz  = Ngl.xy(wks,taus,tempht,tempsfc_res)
@@ -136,6 +146,7 @@ def create_meteogram_for(filename, timestamp):
   Ngl.overlay(rainsum, rainhist)
   Ngl.draw(rainsum)
   Ngl.draw(windmsz)
+  Ngl.draw(dirmsz)
   Ngl.overlay(temptmsz, dewpmsz)
   Ngl.draw(temptmsz)
   Ngl.frame(wks)

@@ -30,6 +30,41 @@ def get_windspeed_resource(count_xdata, wind_speed):
   wind_res.nglMaximize     = False     # Do not maximize plot in frame
   return wind_res
 
+# function to create the plot resource for the wind speed plot of the meteogram
+def get_winddirection_resource(count_xdata, wind_direction):
+  direction_res = Ngl.Resources()
+  direction_res.vpXF            = 0.15       # The left side of the box location
+  direction_res.vpYF            = 0.6        # The top side of the plot box loc
+  direction_res.vpWidthF        = 0.75       # The Width of the plot box
+  direction_res.vpHeightF       = 0.10       # The height of the plot box
+  direction_res.trXMaxF         = count_xdata  # max value on x-axis
+  direction_res.trYMaxF         = 360.0   # max value on y-axis
+  direction_res.trYMinF         = 0.0                     # min value on y-axis
+
+  direction_res.tiXAxisString  = ""            # turn off x-axis string
+  direction_res.tiYAxisString  = "wind dir. (deg.)"  # set y-axis string
+  direction_res.tiYAxisFontHeightF = 0.015          # Y axes font height.
+  direction_res.tmXTOn         = False         # turn off the top tickmarks
+  direction_res.tmXBMode       = "Explicit"
+  direction_res.tmXMajorGrid = True
+  direction_res.tmXMajorGridLineDashPattern = 2
+  direction_res.tmYLMode       = "Explicit"
+  direction_res.tmYLValues     = [ 0, 90, 180, 270 ]
+  direction_res.tmYLLabels     = ["N", "E", "S", "W"]
+  direction_res.tmYLMinorValues = [ 45, 135, 225, 315 ]
+
+  direction_res.xyLineThicknesses = 2          # increase line thickness
+  direction_res.xyMarkLineMode = "Markers"
+  direction_res.xyMarkers      = 10
+  direction_res.xyMarkerColor  = "purple"
+  direction_res.xyMarkerSizeF  = 0.001
+
+  direction_res.nglDraw         = False     # Don't draw individual plot.
+  direction_res.nglFrame        = False     # Don't advance frame.
+  direction_res.nglMaximize     = False     # Do not maximize plot in frame
+  return direction_res
+
+
 # function to calculate the wind speed from the two dimensional components u and v
 def calculate_windspeed(u, v, data_size):
   wind_speed = numpy.empty(data_size)
@@ -41,8 +76,8 @@ def calculate_windspeed(u, v, data_size):
 # function to calculate the wind speed from the two dimensional components u and v
 def calculate_winddirection(u, v, data_size):
   wind_direction = numpy.empty(data_size)
-  radToDeg = 180.0/(math.atan(1)*4.0)
 
   for i in range(data_size):
-    wind_direction[i] = math.atan2(u[i], v[i]) * radToDeg + 180.
+    wind_direction[i] = math.degrees(math.atan2(u[i], v[i])) + 180.
+
   return wind_direction
