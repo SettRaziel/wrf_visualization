@@ -45,8 +45,8 @@ def generate_xlegend(timestamp, forecast_hours):
   return main_hours, sec_hours, labels
 
 # function to create the meteogram for the given location
-def create_meteogram_for(filename, timestamp):
-  with open(filename) as f:
+def create_meteogram_for(filepath, filename, timestamp):
+  with open(filepath + filename) as f:
     head, input = read_file(f)
 
   # Create numpy 2D array

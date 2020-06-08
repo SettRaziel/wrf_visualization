@@ -4,9 +4,10 @@ from wrf import getvar, get_pyngl
 import comp_lib, rain_lib, thunderstorm_lib
 import datetime
 
-for filename in os.listdir("."):
+filepath = "../../files/"
+for filename in os.listdir(filepath):
   if filename.startswith("wrfout"):
-    wrf_data = Nio.open_file(filename+".nc")  # Must add ".nc" suffix for Nio.open_file
+    wrf_data = Nio.open_file(filepath + filename + ".nc")  # Must add ".nc" suffix for Nio.open_file
     timestamp = datetime.datetime.strptime(filename.split("d01_")[1], "%Y-%m-%d_%H:%M:%S")
     
     # plot composite with temperature, pressure and wind                              

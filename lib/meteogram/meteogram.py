@@ -12,8 +12,9 @@ if (len(sys.argv) != 2):
 timestamp = datetime.datetime.strptime(sys.argv[1], "%Y-%m-%d %H:%M")
 
 #  Iterate over all files in the directory an print meteogram for each *.TS file
-for filename in os.listdir("."):
+filepath = "../../files/"
+for filename in os.listdir(filepath):
   if filename.endswith(".TS"):  
-    meteogram_lib.create_meteogram_for(filename, timestamp)
+    meteogram_lib.create_meteogram_for(filepath, filename, timestamp)
 
 Ngl.end()

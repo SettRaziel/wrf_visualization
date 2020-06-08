@@ -3,3 +3,6 @@ test/
 
 # ignore python cache folder
 __pycache__/
+
+# ignore output files within files directory
+files/
