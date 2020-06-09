@@ -71,7 +71,8 @@ def create_meteogram_for(filepath, filename, timestamp):
                            [ 20,150, 20]                                \
                          ],'f') / 255.
   wks_type = "png"
-  wks = Ngl.open_wks(wks_type,"meteogram_"+filename.split(".")[0])
+  output_file = filepath + timestamp.strftime("%m_%d_%H") + "_meteogram_" + filename.split(".")[0]
+  wks = Ngl.open_wks(wks_type, output_file)
 
   # calculate secondary data
   count_xdata = taus[-1]

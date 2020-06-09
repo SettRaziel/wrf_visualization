@@ -4,7 +4,7 @@ from wrf import getvar, get_pyngl, smooth2d, latlon_coords, to_np
 import pressure_lib
 
 # function to generate the output image for the given timestep
-def print_total_rainsum_for_timestamp(wrf_data, timestamp):
+def print_total_rainsum_for_timestamp(wrf_data, timestamp, filepath):
   slp = pressure_lib.get_sea_level_pressure(wrf_data)
   rain_exp = getvar(wrf_data,"RAINNC")
   rain_con = getvar(wrf_data,"RAINC")
@@ -55,8 +55,9 @@ def print_total_rainsum_for_timestamp(wrf_data, timestamp):
   wk_res = Ngl.Resources()
   wk_res.wkWidth = 2500
   wk_res.wkHeight = 2500
-  wks_comp = Ngl.open_wks("png","rainsum_%s" % timestamp.strftime("%Y_%m_%d_%H"), wk_res)
-
+  output_path = "%srainsum_%s" % (filepath, timestamp.strftime("%Y_%m_%d_%H"))
+  wks_comp = Ngl.open_wks("png", output_path, wk_res)
+  
   # creating plots for the measurands
   rrplot = Ngl.contour_map(wks_comp,rain_sum,rr_res)
   pplot = Ngl.contour(wks_comp,slp,p_res)

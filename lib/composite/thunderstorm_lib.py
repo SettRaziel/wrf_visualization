@@ -4,7 +4,7 @@ from wrf import getvar, get_pyngl, smooth2d, latlon_coords, to_np
 import pressure_lib
 
 # function to generate the output image for the given timestep
-def print_cape_for_timestamp(wrf_data, timestamp):
+def print_cape_for_timestamp(wrf_data, timestamp, filepath):
   slp = pressure_lib.get_sea_level_pressure(wrf_data)
   cinfo = getvar(wrf_data,"cape_2d", missing=0.0)
   cape = cinfo[0,:,:].fillna(0)
@@ -52,8 +52,9 @@ def print_cape_for_timestamp(wrf_data, timestamp):
   wk_res = Ngl.Resources()
   wk_res.wkWidth = 2500
   wk_res.wkHeight = 2500
-  wks_comp = Ngl.open_wks("png","cape_%s" % timestamp.strftime("%Y_%m_%d_%H"), wk_res)
-
+  output_path = "%scape_%s" % (filepath, timestamp.strftime("%Y_%m_%d_%H"))
+  wks_comp = Ngl.open_wks("png", output_path, wk_res)
+  
   # creating plots for the measurands
   capeplot = Ngl.contour_map(wks_comp,cape,cape_res)
   pplot = Ngl.contour(wks_comp,slp,p_res)
