@@ -15,9 +15,9 @@ def get_pressure_resource(lat, lon):
   
   p_res.cnHighLabelsOn      = True                   # Set labels
   p_res.cnLowLabelsOn       = True
-  p_res.cnLineThicknessF    = 2
+  p_res.cnLineThicknessF    = 5
   p_res.cnMonoLineColor     = True                     
-  p_res.cnLineColor         = "gray50"
+  p_res.cnLineColor         = "black"
   p_res.cnLineLabelInterval = 4
   p_res.cnInfoLabelString   = "pressure (hPa) from $CMN$ to $CMX$ by $CIU$ hPa"
   
