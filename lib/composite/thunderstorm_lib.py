@@ -1,7 +1,7 @@
 from __future__ import print_function
 import numpy, Nio, Ngl, os, sys
 from wrf import getvar, get_pyngl, smooth2d, latlon_coords, to_np
-import pressure_lib
+import pressure_lib, geography_lib
 
 # function to generate the output image for the given timestep
 def print_cape_for_timestamp(wrf_data, timestamp, filepath):
@@ -29,13 +29,7 @@ def print_cape_for_timestamp(wrf_data, timestamp, filepath):
                                                [153, 50,204], [139,  0,139], ],'f') / 255.
   cape_res.cnLevels            = numpy.array( [.1, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500 ])
   
-  cape_res.mpGeophysicalLineColor = "black"
-  cape_res.mpGeophysicalLineThicknessF = 5
-  cape_res.mpNationalLineColor = "gray75"
-  cape_res.mpNationalLineThicknessF = 5
-  cape_res.mpDataBaseVersion   = "MediumRes"
-  cape_res.pmLabelBarHeightF   = 0.08
-  cape_res.pmLabelBarWidthF    = 0.65
+  cape_res = geography_lib.initialize_geography(cape_res, "gray50")
   
   cape_res.lbTitleString       = "Convective available potential energy [CAPE] in (J/kg)"
   cape_res.lbOrientation       = "horizontal"

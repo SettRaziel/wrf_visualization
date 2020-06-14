@@ -1,7 +1,7 @@
 from __future__ import print_function
 import numpy, Nio, Ngl, os, sys
 from wrf import getvar, get_pyngl, smooth2d, latlon_coords, to_np
-import pressure_lib
+import pressure_lib, geography_lib
 
 # function to retrieve the latitude wind component from the input data
 def get_latitude_wind(wrf_data):
@@ -36,13 +36,7 @@ def print_comp_for_timestamp(wrf_data, timestamp, filepath):
   #t_res.cnFillPalette       = "ncl_default"
   t_res.cnFillPalette       = "BlAqGrYeOrReVi200"
   
-  t_res.mpGeophysicalLineColor = "black"
-  t_res.mpGeophysicalLineThicknessF = 5
-  t_res.mpNationalLineColor = "gray75"
-  t_res.mpNationalLineThicknessF = 5
-  t_res.mpDataBaseVersion   = "MediumRes"
-  t_res.pmLabelBarHeightF   = 0.08
-  t_res.pmLabelBarWidthF    = 0.65
+  t_res = geography_lib.initialize_geography(t_res, "gray25")
   
   t_res.lbTitleString       = "%s in (%s)" % (temperature.description,temperature.units)
   t_res.lbOrientation       = "horizontal"

@@ -1,7 +1,7 @@
 from __future__ import print_function
 import numpy, Nio, Ngl, os, sys
 from wrf import getvar, get_pyngl, smooth2d, latlon_coords, to_np
-import pressure_lib
+import pressure_lib, geography_lib
 
 # function to get and add the rain data layers
 def get_cumulated_rain_sum(wrf_data):
@@ -36,13 +36,7 @@ def print_total_rainsum_for_timestamp(wrf_data, timestamp, filepath):
   rr_res.cnLevels            = numpy.array( [ .1, .2, .4, .8, 1.6, 3.2, 6.4,  \
                                               12.8, 25.6, 51.2, 102.4, 204.8 ])
   
-  rr_res.mpGeophysicalLineColor = "black"
-  rr_res.mpGeophysicalLineThicknessF = 5
-  rr_res.mpNationalLineColor = "gray75"
-  rr_res.mpNationalLineThicknessF = 5
-  rr_res.mpDataBaseVersion   = "MediumRes"
-  rr_res.pmLabelBarHeightF   = 0.08
-  rr_res.pmLabelBarWidthF    = 0.65
+  rr_res = geography_lib.initialize_geography(rr_res, "gray50")
   
   rr_res.lbTitleString       = "Total rainsum in (mm)"
   rr_res.lbOrientation       = "horizontal"
@@ -101,13 +95,7 @@ def get_3h_rainsum(previous_data, current_data, timestamp, filepath):
   rr_res.cnLevels            = numpy.array( [ .1, .2, .4, .8, 1.6, 3.2, 6.4,  \
                                               12.8, 25.6, 51.2, 102.4, 204.8 ])
   
-  rr_res.mpGeophysicalLineColor = "black"
-  rr_res.mpGeophysicalLineThicknessF = 5
-  rr_res.mpNationalLineColor = "gray75"
-  rr_res.mpNationalLineThicknessF = 5
-  rr_res.mpDataBaseVersion   = "MediumRes"
-  rr_res.pmLabelBarHeightF   = 0.08
-  rr_res.pmLabelBarWidthF    = 0.65
+  rr_res = geography_lib.initialize_geography(rr_res, "gray50")
   
   rr_res.lbTitleString       = "3h rainsum in (mm)"
   rr_res.lbOrientation       = "horizontal"
