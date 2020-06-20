@@ -55,9 +55,6 @@ def get_3hrain_resource(rain3h_time):
 
   rain3h_res.tiXAxisString  = ""            # turn off x-axis string
   rain3h_res.tmXTOn         = False         # turn off the top tickmarks
-  rain3h_res.xyLineThicknesses = 2          # increase line thickness
-  rain3h_res.gsnAboveYRefLineColor = "green"    # above ref line fill green
-  rain3h_res.gsnXYBarChart   = True             # turn on bar chart
   rain3h_res.tmYLMaxTicks = 6
 
   rain3h_res.nglDraw         = False     # Don't draw individual plot.

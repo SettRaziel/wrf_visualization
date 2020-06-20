@@ -44,6 +44,45 @@ def generate_xlegend(timestamp, forecast_hours):
 
   return main_hours, sec_hours, labels
 
+# function to create the bars for the 3hour rain sums
+def create_rain_bar_plot(wks, rain3h_time, rain3h_sum, rain3h_res):
+  rainhist  = Ngl.xy(wks, rain3h_time, rain3h_sum, rain3h_res)
+  dummy = rain3h_res.trYMinF * numpy.ones([len(rain3h_sum)], rain3h_sum.dtype.char)
+
+  # check for bars for the first and last value on the x axis
+  dx               = min(rain3h_time[1:24] - rain3h_time[0:23]) # Calculate bar width.
+  rain3h_res.trXMinF = min(rain3h_time) - dx/2.
+  rain3h_res.trXMaxF = max(rain3h_time) + dx/2.
+  rainhist  = Ngl.xy(wks, rain3h_time, dummy, rain3h_res)
+
+  # check where the rain sum is > 0 and craw a bar for it
+  above_zero     = numpy.greater(rain3h_sum, 0.0)
+  ind_above_zero = numpy.nonzero(above_zero)
+  num_above = len(ind_above_zero[0])
+
+  px = numpy.zeros(5 * num_above, rain3h_time.dtype.char)
+  py = numpy.zeros(5 * num_above, rain3h_sum.dtype.char)
+
+  # bar resource
+  pgres             = Ngl.Resources()
+  pgres.gsFillColor = "green"
+  pgres.gsFillOpacityF = 0.75
+
+  taus_above_zero = numpy.take(rain3h_time, ind_above_zero)
+  # create bar rectangle
+  px[0::5] = (taus_above_zero - dx/2.).astype(rain3h_time.dtype.char)
+  px[1::5] = (taus_above_zero - dx/2.).astype(rain3h_time.dtype.char)
+  px[2::5] = (taus_above_zero + dx/2.).astype(rain3h_time.dtype.char)
+  px[3::5] = (taus_above_zero + dx/2.).astype(rain3h_time.dtype.char)
+  px[4::5] = (taus_above_zero - dx/2.).astype(rain3h_time.dtype.char)
+  py[0::5] = rain3h_res.trYMinF
+  py[1::5] = numpy.take(rain3h_sum, ind_above_zero)
+  py[2::5] = numpy.take(rain3h_sum, ind_above_zero)
+  py[3::5] = rain3h_res.trYMinF
+  py[4::5] = rain3h_res.trYMinF
+  Ngl.add_polygon(wks, rainhist, px, py, pgres)
+  return rainhist
+
 # function to create the meteogram for the given location
 def create_meteogram_for(filepath, filename, timestamp):
   with open(filepath + filename) as f:
@@ -124,7 +163,8 @@ def create_meteogram_for(filepath, filename, timestamp):
 
   # 3 hour rain sum bar charts
   rain3h_res = rain_lib.get_3hrain_resource(rain3h_time)
-
+  rainhist  = create_rain_bar_plot(wks, rain3h_time, rain3h_sum, rain3h_res)
+  
   # ground temperature resource
   tempsfc_res = temperature_lib.get_temperature_resource(count_xdata, tempht, dew_point)
   tempsfc_res.tmXBValues = numpy.array(main_hours)
@@ -137,7 +177,6 @@ def create_meteogram_for(filepath, filename, timestamp):
   windmsz   = Ngl.xy(wks,taus,wind_speed,wind_res)
   dirmsz    = Ngl.xy(wks,taus,wind_direction,direction_res)
   rainsum   = Ngl.xy(wks,taus,rain_sum,rainsum_res)
-  rainhist  = Ngl.xy(wks,rain3h_time,rain3h_sum,rain3h_res)
   temptmsz  = Ngl.xy(wks,taus,tempht,tempsfc_res)
   tempsfc_res.xyLineColor     =  "blue"        # line color for dew point
   dewpmsz   = Ngl.xy(wks,taus,dew_point,tempsfc_res)
