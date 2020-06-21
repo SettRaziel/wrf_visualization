@@ -109,7 +109,7 @@ def create_meteogram_for(filepath, filename, timestamp):
   v          = cdf[:, 8]
   rain_sum   = numpy.add(rain_cum, rain_expl)
 
-  #  Set up a color map and open an output workstation.
+  # set up a color map and open an output workstation.
   colors = numpy.array([                                                \
                            [255,255,255], [255,255,255], [255,255,255], \
                            [240,255,240], [220,255,220], [190,255,190], \

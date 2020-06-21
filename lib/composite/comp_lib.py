@@ -33,7 +33,6 @@ def print_comp_for_timestamp(wrf_data, timestamp, filepath):
   t_res.cnLinesOn           = False                  # turn off contour lines
   t_res.cnLineLabelsOn      = False                  # turn off line labels
   t_res.cnFillMode          = "RasterFill"           # These two resources
-  #t_res.cnFillPalette       = "ncl_default"
   t_res.cnFillPalette       = "BlAqGrYeOrReVi200"
   
   t_res = geography_lib.initialize_geography(t_res, "gray25")
