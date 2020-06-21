@@ -24,6 +24,7 @@ def get_temperature_resource(count_xdata, tempht, dew_point):
   tempsfc_res.trXMaxF         = count_xdata   # max value on x-axis
   tempsfc_res.trYMaxF         = math.ceil(numpy.amax(tempht))
   tempsfc_res.trYMinF         = math.floor(numpy.amin(dew_point))
+  tempsfc_res.tmYLMajorThicknessF = 0.1
 
   tempsfc_res.xyLineThicknesses  = 2
   tempsfc_res.xyLineColor        =  "red"

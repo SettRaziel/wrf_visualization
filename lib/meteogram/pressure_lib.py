@@ -26,6 +26,7 @@ def get_pressure_resource(count_xdata, pressure, title):
   pres_res.xyLineThicknesses = 2          # increase line thickness
   pres_res.xyLineColor       = "blue"    # set line color
   pres_res.tmYMajorGrid      = True
+  pres_res.tmYLMajorThicknessF = 0.1
 
   pres_res.nglDraw         = False     # Don't draw individual plot.
   pres_res.nglFrame        = False     # Don't advance frame.

@@ -27,6 +27,7 @@ def get_relhumidity_resource(count_xdata):
   relhum_res.trXMaxF         = count_xdata   # max value on x-axis
   relhum_res.trYMaxF         = 100
   relhum_res.trYMinF         = 0.0
+  relhum_res.tmYLMajorThicknessF = 0.1
 
   relhum_res.xyLineThicknesses  = 2
   relhum_res.xyLineColor        =  "dark green"

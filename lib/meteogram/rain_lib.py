@@ -29,6 +29,7 @@ def get_rainsum_resource(count_xdata):
   rainsum_res.tmYLValues      = [ 0, 2, 4, 10, 30 ]
   rainsum_res.tmYLLabels      = [ 0, 2, 4, 10, 30 ]
   rainsum_res.tmYLMinorValues = [ 1, 3, 5, 20 ]
+  rainsum_res.tmYLMajorThicknessF = 0.1
 
   rainsum_res.tmYMajorGrid   = True
   rainsum_res.xyLineThicknesses = 2          # increase line thickness
