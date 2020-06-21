@@ -83,6 +83,13 @@ def create_rain_bar_plot(wks, rain3h_time, rain3h_sum, rain3h_res):
   Ngl.add_polygon(wks, rainhist, px, py, pgres)
   return rainhist
 
+# function to add axis labels, major and minor tickmarks to the x axis
+def config_xaxis_legend(res, main_hours, sec_hours, labels):
+  res.tmXBValues = numpy.array(main_hours)
+  res.tmXBMinorValues = numpy.array(sec_hours)
+  res.tmXBLabels = labels
+  return res
+
 # function to create the meteogram for the given location
 def create_meteogram_for(filepath, filename, timestamp):
   with open(filepath + filename) as f:
@@ -133,33 +140,23 @@ def create_meteogram_for(filepath, filename, timestamp):
   # pressure resource
   headline = head.split(" ")[0] + " (%s)" % timestamp.strftime("%b %d %Y %HUTC")
   pres_res = pressure_lib.get_pressure_resource(count_xdata, pressure, headline)
-  pres_res.tmXBValues = numpy.array(main_hours)
-  pres_res.tmXBMinorValues = numpy.array(sec_hours)
-  pres_res.tmXBLabels = labels
-
+  pres_res = config_xaxis_legend(pres_res, main_hours, sec_hours, labels)
+  
   # relative humidity
   relhum_res = humidity_lib.get_relhumidity_resource(count_xdata)
-  relhum_res.tmXBValues = numpy.array(main_hours)
-  relhum_res.tmXBMinorValues = numpy.array(sec_hours)
-  relhum_res.tmXBLabels = labels
+  relhum_res = config_xaxis_legend(relhum_res, main_hours, sec_hours, labels)
 
   # wind speed recource
   wind_res = wind_lib.get_windspeed_resource(count_xdata, wind_speed)
-  wind_res.tmXBValues = numpy.array(main_hours)
-  wind_res.tmXBMinorValues = numpy.array(sec_hours)
-  wind_res.tmXBLabels = labels
-
+  wind_res= config_xaxis_legend(wind_res, main_hours, sec_hours, labels)
+  
   # wind direction recource
   direction_res = wind_lib.get_winddirection_resource(count_xdata, wind_speed)
-  direction_res.tmXBValues = numpy.array(main_hours)
-  direction_res.tmXBMinorValues = numpy.array(sec_hours)
-  direction_res.tmXBLabels = labels
+  direction_res = config_xaxis_legend(direction_res, main_hours, sec_hours, labels)
 
   # rain sum resources
   rainsum_res = rain_lib.get_rainsum_resource(count_xdata)
-  rainsum_res.tmXBValues = numpy.array(main_hours)
-  rainsum_res.tmXBMinorValues = numpy.array(sec_hours)
-  rainsum_res.tmXBLabels = labels
+  rainsum_res = config_xaxis_legend(rainsum_res, main_hours, sec_hours, labels)
 
   # 3 hour rain sum bar charts
   rain3h_res = rain_lib.get_3hrain_resource(rain3h_time)
@@ -167,9 +164,7 @@ def create_meteogram_for(filepath, filename, timestamp):
   
   # ground temperature resource
   tempsfc_res = temperature_lib.get_temperature_resource(count_xdata, tempht, dew_point)
-  tempsfc_res.tmXBValues = numpy.array(main_hours)
-  tempsfc_res.tmXBMinorValues = numpy.array(sec_hours)
-  tempsfc_res.tmXBLabels = labels
+  tempsfc_res = config_xaxis_legend(tempsfc_res, main_hours, sec_hours, labels)
 
   # generate plot results
   pressmsz  = Ngl.xy(wks,taus,pressure,pres_res)
