@@ -29,7 +29,7 @@ def get_relhumidity_resource(count_xdata):
   relhum_res.trYMinF         = 0.0
   relhum_res.tmYLMajorThicknessF = 0.1
 
-  relhum_res.xyLineThicknesses  = 2
+  relhum_res.xyLineThicknesses  = 3
   relhum_res.xyLineColor        =  "dark green"
 
   relhum_res.nglDraw         = False     # Don't draw individual plot.

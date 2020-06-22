@@ -32,7 +32,7 @@ def get_rainsum_resource(count_xdata):
   rainsum_res.tmYLMajorThicknessF = 0.1
 
   rainsum_res.tmYMajorGrid   = True
-  rainsum_res.xyLineThicknesses = 2          # increase line thickness
+  rainsum_res.xyLineThicknesses = 3          # increase line thickness
   rainsum_res.nglYRefLine     = 0.0             # create a reference line
   rainsum_res.xyLineColor     =  "blue"       # set line color
 
