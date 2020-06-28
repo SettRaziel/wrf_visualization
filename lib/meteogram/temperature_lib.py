@@ -12,7 +12,7 @@ def get_temperature_resource(count_xdata, tempht, dew_point):
 
   tempsfc_res.tiXAxisString      = ""             # X axes label.
   tempsfc_res.tiYAxisFontHeightF = 0.015          # Y axes font height.
-  tempsfc_res.tiYAxisString      = "Temp at 2m"   # Y axis label.
+  tempsfc_res.tiYAxisString      = "T / Td [*C]"   # Y axis label.
 
   tempsfc_res.tmXBMode           = "Explicit"     # Define own tick mark labels.
   tempsfc_res.tmXMajorGrid       = True

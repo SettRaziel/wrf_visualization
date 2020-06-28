@@ -15,7 +15,7 @@ def get_relhumidity_resource(count_xdata):
 
   relhum_res.tiXAxisString      = ""             # X axes label.
   relhum_res.tiYAxisFontHeightF = 0.015          # Y axes font height.
-  relhum_res.tiYAxisString      = "rel. humidity"   # Y axis label.
+  relhum_res.tiYAxisString      = "humidity [%]"   # Y axis label.
 
   relhum_res.tmXBMode           = "Explicit"     # Define own tick mark labels.
   relhum_res.tmXMajorGrid       = True

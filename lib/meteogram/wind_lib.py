@@ -14,7 +14,7 @@ def get_windspeed_resource(count_xdata, wind_speed):
   wind_res.trYMinF         = 0.0                     # min value on y-axis
 
   wind_res.tiXAxisString  = ""            # turn off x-axis string
-  wind_res.tiYAxisString  = "wind sp. (m/s)"  # set y-axis string
+  wind_res.tiYAxisString  = "wind sp. [m/s]"  # set y-axis string
   wind_res.tiYAxisFontHeightF = 0.015          # Y axes font height.
   wind_res.tmXTOn         = False         # turn off the top tickmarks
   wind_res.tmXBMode       = "Explicit"
@@ -42,7 +42,7 @@ def get_winddirection_resource(count_xdata, wind_direction):
   direction_res.trYMinF         = 0.0                     # min value on y-axis
 
   direction_res.tiXAxisString  = ""            # turn off x-axis string
-  direction_res.tiYAxisString  = "wind dir. (deg.)"  # set y-axis string
+  direction_res.tiYAxisString  = "wind dir. [deg.]"  # set y-axis string
   direction_res.tiYAxisFontHeightF = 0.015          # Y axes font height.
   direction_res.tmXTOn         = False         # turn off the top tickmarks
   direction_res.tmXBMode       = "Explicit"

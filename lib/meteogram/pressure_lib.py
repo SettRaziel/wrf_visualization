@@ -16,7 +16,7 @@ def get_pressure_resource(count_xdata, pressure, title):
   pres_res.tiMainString    = title
 
   pres_res.tiXAxisString  = ""            # turn off x-axis string
-  pres_res.tiYAxisString  = "p (hPa)"     # set y-axis string
+  pres_res.tiYAxisString  = "p [hPa]"     # set y-axis string
   pres_res.tmXTOn         = False         # turn off the top tickmarks
   pres_res.tmXBMode       = "Explicit"
   pres_res.tmXMajorGrid = True

@@ -18,7 +18,7 @@ def get_rainsum_resource(count_xdata):
 
   rainsum_res.tiXAxisString   = ""            # X axes label.
   rainsum_res.tiYAxisFontHeightF = 0.015          # Y axes font height.
-  rainsum_res.tiYAxisString   = "3hr rain total"  # Y axis label.
+  rainsum_res.tiYAxisString   = "rain [mm]"  # Y axis label.
   rainsum_res.tmXTOn          = False      # turn off the top tickmarks
   rainsum_res.tmXBMode        = "Explicit"    # Define own tick mark labels.
   rainsum_res.tmXBMinorOn     = True      # Minor tick marks.
