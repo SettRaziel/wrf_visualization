@@ -4,6 +4,10 @@ import Ngl
 import datetime
 import meteogram_lib
 
+# main run script for plotting meteograms based on the *.TS data of a model run
+# version: v0.1.0
+# created by Benjamin Held, December 2019
+
 if (len(sys.argv) != 2):
   raise ValueError("Incorrect number of arguments, 1 argument required")
 

@@ -4,6 +4,10 @@ from wrf import getvar, get_pyngl
 import comp_lib, rain_lib, thunderstorm_lib
 import datetime
 
+# main run script for plotting composite plots based on the *.nc data of a model run
+# version: v0.1.0
+# created by Benjamin Held, December 2019
+
 filepath = "../../files/"
 previous_data = None
 for filename in os.listdir(filepath):
