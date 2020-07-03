@@ -2,13 +2,15 @@
 # @Author: Benjamin Held
 # @Date:   2020-04-26 11:29:03
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-05-03 10:34:22
+# @Last Modified time: 2020-07-03 19:40:51
 
 # define terminal colors
 . ./terminal_color.sh
 
 # installs the required linux packages
 sh ./install_packages.sh
+# reload .bashrc to call conda
+. ~/.bashrc
 
 # installs and configs the required python packages and environments
 printf "%b\\nInstalling python dependencies: %b\\n" "${YELLOW}" "${NC}"
