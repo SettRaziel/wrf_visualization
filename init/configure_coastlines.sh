@@ -2,7 +2,7 @@
 # @Author: Benjamin Held
 # @Date:   2020-06-13 11:29:03
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-06-14 09:13:29
+# @Last Modified time: 2020-07-03 19:44:30
 
 # define terminal colors
 . ./terminal_color.sh
@@ -15,7 +15,7 @@ load_zipfile () {
 }
 
 # Downloading detailed coastlines
-NGL_PATH="${HOME}/.conda/envs/pyn_env/lib/python3.7/site-packages/ngl/ncarg/rangs"
+NGL_PATH="${HOME}/.conda/envs/wrf_env/lib/python3.7/site-packages/ngl/ncarg/rangs"
 mkdir "${NGL_PATH}"
 cd "${NGL_PATH}"
 
