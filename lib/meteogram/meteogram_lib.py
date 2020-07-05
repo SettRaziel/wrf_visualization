@@ -50,7 +50,7 @@ def create_rain_bar_plot(wks, rain3h_time, rain3h_sum, rain3h_res):
   dummy = rain3h_res.trYMinF * numpy.ones([len(rain3h_sum)], rain3h_sum.dtype.char)
 
   # check for bars for the first and last value on the x axis
-  dx               = min(rain3h_time[1:24] - rain3h_time[0:23]) # Calculate bar width.
+  dx                 = min(rain3h_time[1:-1] - rain3h_time[0:-2])
   rain3h_res.trXMinF = min(rain3h_time) - dx/2.
   rain3h_res.trXMaxF = max(rain3h_time) + dx/2.
   rainhist  = Ngl.xy(wks, rain3h_time, dummy, rain3h_res)
