@@ -70,11 +70,13 @@ def create_rain_bar_plot(wks, rain3h_time, rain3h_sum, rain3h_res):
 
   taus_above_zero = numpy.take(rain3h_time, ind_above_zero)
   # create bar rectangle
-  px[0::5] = (taus_above_zero - dx/2.).astype(rain3h_time.dtype.char)
-  px[1::5] = (taus_above_zero - dx/2.).astype(rain3h_time.dtype.char)
-  px[2::5] = (taus_above_zero + dx/2.).astype(rain3h_time.dtype.char)
-  px[3::5] = (taus_above_zero + dx/2.).astype(rain3h_time.dtype.char)
-  px[4::5] = (taus_above_zero - dx/2.).astype(rain3h_time.dtype.char)
+  taus_plus = (taus_above_zero + dx/2.).astype(rain3h_time.dtype.char)
+  taus_minus = (taus_above_zero - dx/2.).astype(rain3h_time.dtype.char)
+  px[0::5] = taus_minus
+  px[1::5] = taus_minus
+  px[2::5] = taus_plus
+  px[3::5] = taus_plus
+  px[4::5] = taus_minus
   py[0::5] = rain3h_res.trYMinF
   py[1::5] = numpy.take(rain3h_sum, ind_above_zero)
   py[2::5] = numpy.take(rain3h_sum, ind_above_zero)

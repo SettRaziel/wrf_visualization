@@ -9,16 +9,8 @@ def get_cumulated_rain_sum(wrf_data):
   rain_con = getvar(wrf_data,"RAINC")
   return rain_exp + rain_con, rain_con
 
-# function to generate the total rain sum output image
-def print_total_rainsum_for_timestamp(wrf_data, timestamp, filepath):
-  slp = pressure_lib.get_sea_level_pressure(wrf_data)
-  rain_sum, rain_con = get_cumulated_rain_sum(wrf_data)
-  
-  lat, lon = latlon_coords(rain_con)
-  lat_normal = to_np(lat)
-  lon_normal = to_np(lon)
-
-  # rain sum
+# function to initialize and return the rain resource
+def initialize_rain_resource(rain_con):
   rr_res = get_pyngl(rain_con)
   rr_res.nglDraw             = False                  # don't draw plot
   rr_res.nglFrame            = False                  # don't advance frame
@@ -37,6 +29,19 @@ def print_total_rainsum_for_timestamp(wrf_data, timestamp, filepath):
                                               12.8, 25.6, 51.2, 102.4, 204.8 ])
   
   rr_res = geography_lib.initialize_geography(rr_res, "gray50")
+  return rr_res
+
+# function to generate the total rain sum output image
+def print_total_rainsum_for_timestamp(wrf_data, timestamp, filepath):
+  slp = pressure_lib.get_sea_level_pressure(wrf_data)
+  rain_sum, rain_con = get_cumulated_rain_sum(wrf_data)
+  
+  lat, lon = latlon_coords(rain_con)
+  lat_normal = to_np(lat)
+  lon_normal = to_np(lon)
+
+  # rain sum
+  rr_res = initialize_rain_resource(rain_con)
   
   rr_res.lbTitleString       = "Total rainsum in (mm)"
   rr_res.lbOrientation       = "horizontal"
@@ -78,24 +83,7 @@ def get_3h_rainsum(previous_data, current_data, timestamp, filepath):
   lon_normal = to_np(lon)
 
   # rain sum
-  rr_res = get_pyngl(rain_con)
-  rr_res.nglDraw             = False                  # don't draw plot
-  rr_res.nglFrame            = False                  # don't advance frame
-  
-  rr_res.cnFillOn            = True                   # turn on contour fill
-  rr_res.cnLinesOn           = False                  # turn off contour lines
-  rr_res.cnLineLabelsOn      = False                  # turn off line labels
-  rr_res.cnFillMode          = "RasterFill"           # These two resources
-  rr_res.cnLevelSelectionMode = "ExplicitLevels"
-  rr_res.cnFillColors        = numpy.array([ [255,255,255], [255,255,255], [152,251,152], \
-                                             [127,255,  0], [ 50,205, 50], [  0,255,  0], \
-                                             [  0,128,  0], [  0,100,  0], [255,255,  0], \
-                                             [255,165,  0], [255, 69,  0], [139,  0,139], \
-                                             [  0,  0, 255] ],'f') / 255.
-  rr_res.cnLevels            = numpy.array( [ .1, .2, .4, .8, 1.6, 3.2, 6.4,  \
-                                              12.8, 25.6, 51.2, 102.4, 204.8 ])
-  
-  rr_res = geography_lib.initialize_geography(rr_res, "gray50")
+  rr_res = initialize_rain_resource(rain_con)
   
   rr_res.lbTitleString       = "3h rainsum in (mm)"
   rr_res.lbOrientation       = "horizontal"
