@@ -1,4 +1,5 @@
 # WRF Forecast output visualization
+[![Code Climate](https://codeclimate.com/github/SettRaziel/wrf_visualization/badges/gpa.svg)](https://codeclimate.com/github/SettRaziel/wrf_visualization)
 
 Scripts and documentation to create visual output for a WRF model run.
 Moving away from the ncar command language as announced [here](http://www.ncl.ucar.edu/Document/Pivot_to_Python/september_2019_update.shtml)
