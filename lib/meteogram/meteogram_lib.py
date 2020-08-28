@@ -14,7 +14,8 @@ import temperature_lib, rain_lib, pressure_lib, wind_lib, humidity_lib
 def read_file(file):
   input = []
 
-  head = next(file)
+  head = next(file).split(" ") # split string at whitespace
+  head = " ".join(head).split() # remove whitespace elements
   for line in file:
     values = []
     for value in line.split():
@@ -140,8 +141,9 @@ def create_meteogram_for(filepath, filename, timestamp):
 
   # generate measurand resources
   # pressure resource
-  headline = head.split(" ")[0] + " (%s)" % timestamp.strftime("%b %d %Y %HUTC")
-  pres_res = pressure_lib.get_pressure_resource(count_xdata, pressure, headline)
+  sealevel_pressure = pressure_lib.reduce_pressure_to_sealevel(pressure, cdf[:, 5], float(head[13]))
+  pres_res = pressure_lib.get_pressure_resource(count_xdata, sealevel_pressure)
+  pres_res.tiMainString = head[0] + " (%s)" % timestamp.strftime("%b %d %Y %HUTC")
   pres_res = config_xaxis_legend(pres_res, main_hours, sec_hours, labels)
   
   # relative humidity
@@ -169,7 +171,7 @@ def create_meteogram_for(filepath, filename, timestamp):
   tempsfc_res = config_xaxis_legend(tempsfc_res, main_hours, sec_hours, labels)
 
   # generate plot results
-  pressmsz  = Ngl.xy(wks,taus,pressure,pres_res)
+  pressmsz  = Ngl.xy(wks,taus,sealevel_pressure,pres_res)
   relhummsz = Ngl.xy(wks,taus,rel_hum,relhum_res)
   windmsz   = Ngl.xy(wks,taus,wind_speed,wind_res)
   dirmsz    = Ngl.xy(wks,taus,wind_direction,direction_res)
