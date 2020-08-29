@@ -14,7 +14,8 @@ import temperature_lib, rain_lib, pressure_lib, wind_lib, humidity_lib
 def read_file(file):
   input = []
 
-  head = next(file)
+  head = next(file).split(" ") # split string at whitespace
+  head = " ".join(head).split() # remove whitespace elements
   for line in file:
     values = []
     for value in line.split():
@@ -92,6 +93,15 @@ def config_xaxis_legend(res, main_hours, sec_hours, labels):
   res.tmXBLabels = labels
   return res
 
+# function to replace supporting characters and special characters in the head string
+def format_title(head, timestamp):
+  head = head.replace("_", " ")
+  head = head.replace("ö", "oe")
+  head = head.replace("ä", "ae")
+  head = head.replace("ü", "ue")
+  head = head.replace("ß", "ss")
+  return head + " (%s)" % timestamp.strftime("%b %d %Y %HUTC")
+
 # function to create the meteogram for the given location
 def create_meteogram_for(filepath, filename, timestamp):
   with open(filepath + filename) as f:
@@ -140,8 +150,9 @@ def create_meteogram_for(filepath, filename, timestamp):
 
   # generate measurand resources
   # pressure resource
-  headline = head.split(" ")[0] + " (%s)" % timestamp.strftime("%b %d %Y %HUTC")
-  pres_res = pressure_lib.get_pressure_resource(count_xdata, pressure, headline)
+  sealevel_pressure = pressure_lib.reduce_pressure_to_sealevel(pressure, cdf[:, 5], float(head[13]))
+  pres_res = pressure_lib.get_pressure_resource(count_xdata, sealevel_pressure)
+  pres_res.tiMainString = format_title(head[0] ,timestamp)
   pres_res = config_xaxis_legend(pres_res, main_hours, sec_hours, labels)
   
   # relative humidity
@@ -169,7 +180,7 @@ def create_meteogram_for(filepath, filename, timestamp):
   tempsfc_res = config_xaxis_legend(tempsfc_res, main_hours, sec_hours, labels)
 
   # generate plot results
-  pressmsz  = Ngl.xy(wks,taus,pressure,pres_res)
+  pressmsz  = Ngl.xy(wks,taus,sealevel_pressure,pres_res)
   relhummsz = Ngl.xy(wks,taus,rel_hum,relhum_res)
   windmsz   = Ngl.xy(wks,taus,wind_speed,wind_res)
   dirmsz    = Ngl.xy(wks,taus,wind_direction,direction_res)

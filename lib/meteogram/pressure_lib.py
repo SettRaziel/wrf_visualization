@@ -2,8 +2,21 @@ import Ngl
 import math
 import numpy
 
+# function to reduce the station pressure to sea level using the barometric formula
+# with the arithmetic mean of the temperature from the station and reduced to sea level
+def reduce_pressure_to_sealevel(pressure, temperature, station_elevation):
+  r_0 = 287.05 # J/(kg*K)
+  g = 9.80665 # m/s^2
+  sealevel_pressure = numpy.empty(len(pressure))
+
+  for i, p in enumerate(pressure):
+    t_m = temperature[i] + station_elevation / 200 # approx. dT = 1 K / 100 m
+    sealevel_pressure[i] = p * math.exp((g * station_elevation)/(r_0 * t_m))
+
+  return sealevel_pressure
+
 # function to create the plot resource for the air pressure plot of the meteogram
-def get_pressure_resource(count_xdata, pressure, title):
+def get_pressure_resource(count_xdata, pressure):
   pres_res = Ngl.Resources()
   pres_res.vpXF            = 0.15   # The left side of the box location
   pres_res.vpYF            = 0.9    # The top side of the plot box loc
@@ -13,7 +26,6 @@ def get_pressure_resource(count_xdata, pressure, title):
   pres_res.trYMaxF         = numpy.amax(pressure)+1   # max value on y-axis
   pres_res.trYMinF         = numpy.amin(pressure)-1   # min value on y-axis
   pres_res.tiYAxisFontHeightF = 0.015          # Y axes font height.
-  pres_res.tiMainString    = title
 
   pres_res.tiXAxisString  = ""            # turn off x-axis string
   pres_res.tiYAxisString  = "p [hPa]"     # set y-axis string

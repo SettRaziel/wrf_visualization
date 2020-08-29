@@ -1,4 +1,5 @@
 # WRF Forecast output visualization
+[![Code Climate](https://codeclimate.com/github/SettRaziel/wrf_visualization/badges/gpa.svg)](https://codeclimate.com/github/SettRaziel/wrf_visualization)
 
 Scripts and documentation to create visual output for a WRF model run.
 Moving away from the ncar command language as announced [here](http://www.ncl.ucar.edu/Document/Pivot_to_Python/september_2019_update.shtml)
@@ -43,13 +44,13 @@ The project is splitted in two parts:
     * composite with convective available potential energy [CAPE] and ground pressure
 * The creation of stationary plot for a given location that needs the result data for a location that can be specified before a model run starts.
   The model stores several text files for a set location, the relevant ground data is stored in `location.TS` and serves as input data for a 
-  meteogram plot. By executing `python plot_meteograms.py <timestamp>` the script looks up every TS file in the `files` directory and uses them to 
-  generate a meteogram for the given location with:
-    * ground pressure in Pascal [hPa]
+  meteogram plot. By executing `python plot_meteograms.py <"yyyy-mm-dd hh:mm">` the script looks up every TS file in the `files` directory and uses 
+  them to generate a meteogram for the given location with:
+    * station pressure reduced to sea level in [hPa]
     * relative humidity in [%]
     * wind direction 10 m above ground in [degree]
     * wind speed 10 m above ground in [m/s]
-    * precipitation as total sum and 3 hour sum in [mm]
+    * precipitation as total sum since model start and 3 hour sum in [mm]
     * air temperature and dew point 2 m above ground in [degree Celsius]
 
 ## License
