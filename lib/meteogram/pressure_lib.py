@@ -2,6 +2,17 @@ import Ngl
 import math
 import numpy
 
+# function to perform a sanity check for the extreme values of the air pressure
+def check_pressure_boundaries(lower, upper):
+  maximum = 1085.0 # since highest measured pressure: 1084.8hPa, Mongolia; 2001
+  minimum = 870.0 # since lowest measured pressure: 870hPa, Western Pacific; 1979
+
+  if (upper > maximum):
+    raise ValueError("%s is higher than the current max boundary: %shPa" % (upper, maximum))
+
+  if (lower < minimum):
+    raise ValueError("%s is lower than the current min boundary: %shPa" % (lower, minimum))
+
 # function to reduce the station pressure to sea level using the barometric formula
 # with the arithmetic mean of the temperature from the station and reduced to sea level
 def reduce_pressure_to_sealevel(pressure, temperature, station_elevation):
@@ -17,14 +28,20 @@ def reduce_pressure_to_sealevel(pressure, temperature, station_elevation):
 
 # function to create the plot resource for the air pressure plot of the meteogram
 def get_pressure_resource(count_xdata, pressure):
+
+  # sanity check for pressure range
+  upper_boundary = numpy.amax(pressure)
+  lower_boundary = numpy.amin(pressure)
+  check_pressure_boundaries(lower_boundary, upper_boundary)
+
   pres_res = Ngl.Resources()
   pres_res.vpXF            = 0.15   # The left side of the box location
   pres_res.vpYF            = 0.9    # The top side of the plot box loc
   pres_res.vpWidthF        = 0.75   # The Width of the plot box
   pres_res.vpHeightF       = 0.10   # The height of the plot box
   pres_res.trXMaxF         = count_xdata          # max value on x-axis
-  pres_res.trYMaxF         = numpy.amax(pressure)+1   # max value on y-axis
-  pres_res.trYMinF         = numpy.amin(pressure)-1   # min value on y-axis
+  pres_res.trYMaxF         = upper_boundary+1   # max value on y-axis
+  pres_res.trYMinF         = lower_boundary-1   # min value on y-axis
   pres_res.tiYAxisFontHeightF = 0.015          # Y axes font height.
 
   pres_res.tiXAxisString  = ""            # turn off x-axis string
