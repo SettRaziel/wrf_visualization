@@ -4,13 +4,18 @@ import numpy
 
 # function to create the plot resource for the wind speed plot of the meteogram
 def get_windspeed_resource(count_xdata, wind_speed):
+
+  # sanity check for wind speed range
+  upper_boundary = numpy.amax(wind_speed)
+  check_windspeed_boundaries(upper_boundary)
+
   wind_res = Ngl.Resources()
   wind_res.vpXF            = 0.15       # The left side of the box location
   wind_res.vpYF            = 0.45       # The top side of the plot box loc
   wind_res.vpWidthF        = 0.75       # The Width of the plot box
   wind_res.vpHeightF       = 0.10       # The height of the plot box
   wind_res.trXMaxF         = count_xdata  # max value on x-axis
-  wind_res.trYMaxF         = math.ceil(numpy.amax(wind_speed))   # max value on y-axis
+  wind_res.trYMaxF         = math.ceil(upper_boundary)   # max value on y-axis
   wind_res.trYMinF         = 0.0                     # min value on y-axis
 
   wind_res.tiXAxisString  = ""            # turn off x-axis string
@@ -64,6 +69,12 @@ def get_winddirection_resource(count_xdata, wind_direction):
   direction_res.nglMaximize     = False     # Do not maximize plot in frame
   return direction_res
 
+# function to perform a sanity check for the extreme values of the wind speed
+def check_windspeed_boundaries(upper):
+  maximum = 40.0 # since 12 bft is for wind speed > 32 m/s
+
+  if (upper > maximum):
+    raise ValueError("%s is higher than the current max boundary: %sm/s" % (upper, maximum))
 
 # function to calculate the wind speed from the two dimensional components u and v
 def calculate_windspeed(u, v, data_size):
