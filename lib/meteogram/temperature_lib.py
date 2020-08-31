@@ -1,17 +1,15 @@
 import Ngl
 import math
 import numpy
+import validation_lib
 
 # function to perform a sanity check for the extreme values of the air temperature
 def check_tempreature_boundaries(lower, upper):
   maximum = 60.0 # since highest measured temperature: 56.7°C, California; 1913
   minimum = -90.0 # since lowest measured temperature: -89.2°C, Antartica; 1983
 
-  if (upper > maximum):
-    raise ValueError("%s is higher than the current max boundary: %s°C" % (upper, maximum))
-
-  if (lower < minimum):
-    raise ValueError("%s is lower than the current min boundary: %s°C" % (lower, minimum))
+  validation_lib.check_upper_boundary(upper, maximum, "°C")
+  validation_lib.check_lower_boundary(lower, minimum, "°C")
 
 # function to create the plot resource for the temperature plot of the meteogram
 def get_temperature_resource(count_xdata, tempht, dew_point):

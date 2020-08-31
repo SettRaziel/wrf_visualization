@@ -1,17 +1,15 @@
 import Ngl
 import math
 import numpy
+import validation_lib
 
 # function to perform a sanity check for the extreme values of the air pressure
 def check_pressure_boundaries(lower, upper):
   maximum = 1085.0 # since highest measured pressure: 1084.8hPa, Mongolia; 2001
   minimum = 870.0 # since lowest measured pressure: 870hPa, Western Pacific; 1979
 
-  if (upper > maximum):
-    raise ValueError("%s is higher than the current max boundary: %shPa" % (upper, maximum))
-
-  if (lower < minimum):
-    raise ValueError("%s is lower than the current min boundary: %shPa" % (lower, minimum))
+  validation_lib.check_upper_boundary(upper, maximum, "hPa")
+  validation_lib.check_lower_boundary(lower, minimum, "hPa")
 
 # function to reduce the station pressure to sea level using the barometric formula
 # with the arithmetic mean of the temperature from the station and reduced to sea level

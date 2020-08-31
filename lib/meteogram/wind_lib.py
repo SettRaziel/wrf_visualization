@@ -1,6 +1,7 @@
 import Ngl
 import math
 import numpy
+import validation_lib
 
 # function to create the plot resource for the wind speed plot of the meteogram
 def get_windspeed_resource(count_xdata, wind_speed):
@@ -73,8 +74,7 @@ def get_winddirection_resource(count_xdata, wind_direction):
 def check_windspeed_boundaries(upper):
   maximum = 40.0 # since 12 bft is for wind speed > 32 m/s
 
-  if (upper > maximum):
-    raise ValueError("%s is higher than the current max boundary: %sm/s" % (upper, maximum))
+  validation_lib.check_upper_boundary(upper, maximum, "m/s")
 
 # function to calculate the wind speed from the two dimensional components u and v
 def calculate_windspeed(u, v, data_size):
