@@ -4,12 +4,11 @@ import numpy
 import validation_lib
 
 # function to perform a sanity check for the extreme values of the air pressure
-def check_pressure_boundaries(lower, upper):
-  maximum = 1085.0 # since highest measured pressure: 1084.8hPa, Mongolia; 2001
-  minimum = 870.0 # since lowest measured pressure: 870hPa, Western Pacific; 1979
+def check_and_get_pressure_boundaries(pressure):
+  upper_boundary = 1085.0 # since highest measured pressure: 1084.8hPa, Mongolia; 2001
+  lower_boundary = 870.0 # since lowest measured pressure: 870hPa, Western Pacific; 1979
 
-  validation_lib.check_upper_boundary(upper, maximum, "hPa")
-  validation_lib.check_lower_boundary(lower, minimum, "hPa")
+  return validation_lib.get_and_check_boundaries(pressure, upper_boundary, lower_boundary, "hPa")
 
 # function to reduce the station pressure to sea level using the barometric formula
 # with the arithmetic mean of the temperature from the station and reduced to sea level
@@ -27,10 +26,7 @@ def reduce_pressure_to_sealevel(pressure, temperature, station_elevation):
 # function to create the plot resource for the air pressure plot of the meteogram
 def get_pressure_resource(count_xdata, pressure):
 
-  # sanity check for pressure range
-  upper_boundary = numpy.amax(pressure)
-  lower_boundary = numpy.amin(pressure)
-  check_pressure_boundaries(lower_boundary, upper_boundary)
+  lower_boundary, upper_boundary = check_and_get_pressure_boundaries(pressure)
 
   pres_res = Ngl.Resources()
   pres_res.vpXF            = 0.15   # The left side of the box location
