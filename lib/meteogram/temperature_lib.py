@@ -1,9 +1,25 @@
 import Ngl
 import math
 import numpy
+import validation_lib
+
+# function to perform a sanity check for the extreme values of the air temperature
+def check_and_temperature_boundaries(temperature, dew_point):
+  upper_boundary = 60.0 # since highest measured temperature: 56.7°C, California; 1913
+  lower_boundary = -90.0 # since lowest measured temperature: -89.2°C, Antartica; 1983
+  data_maximum = numpy.amax(temperature)
+  data_minimum = numpy.amin(dew_point)
+
+  validation_lib.check_upper_boundary(data_maximum, upper_boundary, "°C")
+  validation_lib.check_lower_boundary(data_minimum, lower_boundary, "°C")
+  return data_minimum, data_maximum
 
 # function to create the plot resource for the temperature plot of the meteogram
 def get_temperature_resource(count_xdata, tempht, dew_point):
+
+  # sanity check for temperature range
+  lower_boundary, upper_boundary = check_and_temperature_boundaries(tempht, dew_point)
+
   tempsfc_res = Ngl.Resources()
   tempsfc_res.vpXF            = 0.15   # The left side of the box
   tempsfc_res.vpYF            = 0.15   # The top side of the plot box
@@ -22,8 +38,8 @@ def get_temperature_resource(count_xdata, tempht, dew_point):
   tempsfc_res.tmXTOn             = False          # turn off the top tickmarks
 
   tempsfc_res.trXMaxF         = count_xdata   # max value on x-axis
-  tempsfc_res.trYMaxF         = math.ceil(numpy.amax(tempht))
-  tempsfc_res.trYMinF         = math.floor(numpy.amin(dew_point))
+  tempsfc_res.trYMaxF         = math.ceil(upper_boundary)
+  tempsfc_res.trYMinF         = math.floor(lower_boundary)
   tempsfc_res.tmYLMajorThicknessF = 0.1
 
   tempsfc_res.xyLineThicknesses  = 2
