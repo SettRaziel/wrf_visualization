@@ -56,4 +56,16 @@ The project is splitted in two parts:
 ## License
 see LICENSE
 
+## Contributing
+* Fork it
+* Create your feature branch (git checkout -b my-new-feature)
+* Commit your changes (git commit -am 'add some feature')
+* Push to the branch (git push origin my-new-feature)
+* Create an issue describing your work
+* Create a new pull request
+
+
+## Todos and Issues
+check [issues](https://github.com/SettRaziel/wrf_visualization/issues)
+
 created by: Benjamin Held, December 2019
