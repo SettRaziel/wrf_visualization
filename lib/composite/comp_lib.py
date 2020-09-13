@@ -34,6 +34,10 @@ def print_comp_for_timestamp(wrf_data, timestamp, filepath):
   t_res.cnLineLabelsOn      = False                  # turn off line labels
   t_res.cnFillMode          = "RasterFill"           # These two resources
   t_res.cnFillPalette       = "BlAqGrYeOrReVi200"
+  t_res.cnLevelSelectionMode = "ManualLevels"
+  t_res.cnMinLevelValF      = -25.0                  # min. temperature for composite
+  t_res.cnMaxLevelValF      = 45.0                   # max. temperature for composite
+  t_res.cnLevelSpacingF     = 1                      # increment
   
   t_res = geography_lib.initialize_geography(t_res, "gray25")
   
