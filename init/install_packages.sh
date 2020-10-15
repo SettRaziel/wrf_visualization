@@ -2,7 +2,7 @@
 # @Author: Benjamin Held
 # @Date:   2020-02-03 21:14:09
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-10-15 20:11:19
+# @Last Modified time: 2020-10-15 20:26:31
 
 # define terminal colors
 . ./terminal_color.sh
@@ -26,7 +26,7 @@ yay -S --noconfirm --needed miniconda3
 CONDA_PATH="/opt/miniconda3/etc/profile.d/conda.sh"
 FILE_PATH="${HOME}/.bashrc"
 ENV_VARIABLE="[ -f ${CONDA_PATH} ] && source ${CONDA_PATH}"
-RET=`grep -Fx "${ENV_VARIABLE}" "${FILE_PATH}"`
+RET=$(grep -Fx "${ENV_VARIABLE}" "${FILE_PATH}")
 
 # check if conda variable already is set in .bashrc
 if [[ ${RET} == "" ]]; then
@@ -36,7 +36,7 @@ if [[ ${RET} == "" ]]; then
 fi
 
 # package clean up
-sudo pacman --noconfirm -Rsn $(sudo pacman -Qdtq)
+sudo pacman --noconfirm -Rsn "$(sudo pacman -Qdtq)"
 
 # returning to script path
 cd "${SCRIPT_PATH}" || exit 1
