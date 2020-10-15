@@ -2,7 +2,7 @@
 # @Author: Benjamin Held
 # @Date:   2020-02-03 21:14:09
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-10-15 20:31:31
+# @Last Modified time: 2020-10-15 20:35:54
 
 # define terminal colors
 . ./terminal_color.sh
@@ -36,7 +36,7 @@ if [[ ${RET} == "" ]]; then
 fi
 
 # package clean up
-sudo pacman --noconfirm -Rsn "$(sudo pacman -Qdtq)"
+sudo pacman --noconfirm -Rsn $(sudo pacman -Qdtq)
 
 # returning to script path
 cd "${SCRIPT_PATH}" || exit 1
