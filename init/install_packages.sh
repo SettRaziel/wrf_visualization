@@ -2,7 +2,7 @@
 # @Author: Benjamin Held
 # @Date:   2020-02-03 21:14:09
 # @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-10-15 20:26:31
+# @Last Modified time: 2020-10-15 20:31:31
 
 # define terminal colors
 . ./terminal_color.sh
@@ -32,7 +32,7 @@ RET=$(grep -Fx "${ENV_VARIABLE}" "${FILE_PATH}")
 if [[ ${RET} == "" ]]; then
   echo "${ENV_VARIABLE}" >> "${FILE_PATH}"
   # check .bashrc
-  cat "${FILE_PATH}" | grep "miniconda"
+  grep -F "miniconda" "${FILE_PATH}"
 fi
 
 # package clean up
