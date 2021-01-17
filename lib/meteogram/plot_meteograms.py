@@ -5,7 +5,7 @@ import datetime
 import meteogram_lib
 
 # main run script for plotting meteograms based on the *.TS data of a model run
-# version: v0.1.1
+# version: v0.1.2
 # created by Benjamin Held, December 2019
 
 if (len(sys.argv) != 2):
