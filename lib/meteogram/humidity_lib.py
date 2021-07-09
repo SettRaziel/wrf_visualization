@@ -10,9 +10,6 @@ def get_relhumidity_resource(count_xdata):
   relhum_res.vpWidthF        = 0.75   # The Width of the plot box
   relhum_res.vpHeightF       = 0.10   # The height of the plot box
   
-  relhum_res.gsnYRefLine = 0.1
-  relhum_res.gsnAboveYRefLineColor = "dark green"
-
   relhum_res.tiXAxisString      = ""             # X axes label.
   relhum_res.tiYAxisFontHeightF = 0.015          # Y axes font height.
   relhum_res.tiYAxisString      = "humidity [%]"   # Y axis label.
