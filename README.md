@@ -53,6 +53,13 @@ The project is splitted in two parts:
     * precipitation as total sum since model start and 3 hour sum in [mm]
     * air temperature and dew point 2 m above ground in [degree Celsius]
 
+## Troubleshooting
+Initialization:
+* running the command to set up the conda environment takes time due to the 
+  [package enviroment](https://www.anaconda.com/blog/understanding-and-improving-condas-performance).
+  Current test runs require roughly half an hour on a single core virtual machine. If the command takes more
+  then two hours try to use the debug option `--verbose` twice to check for issues with the command
+
 ## License
 see LICENSE
 

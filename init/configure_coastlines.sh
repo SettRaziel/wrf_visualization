@@ -1,8 +1,4 @@
 #!/bin/sh
-# @Author: Benjamin Held
-# @Date:   2020-06-13 11:29:03
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-10-15 20:26:57
 
 # define terminal colors
 . ./terminal_color.sh

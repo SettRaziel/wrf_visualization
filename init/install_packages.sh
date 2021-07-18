@@ -1,8 +1,4 @@
 #!/bin/sh
-# @Author: Benjamin Held
-# @Date:   2020-02-03 21:14:09
-# @Last Modified by:   Benjamin Held
-# @Last Modified time: 2020-10-15 20:35:54
 
 # define terminal colors
 . ./terminal_color.sh
@@ -18,6 +14,10 @@ cd yay || exit 1
 git pull
 makepkg -si --noconfirm --needed
 cd .. || exit 1
+
+# installing additional packeges
+printf "%b\\nInstalling required packages: %b\\n" "${YELLOW}" "${NC}"
+yay -S --noconfirm --needed wget unzip
 
 # installing package manager
 printf "%b\\nInstalling required python package manager: %b\\n" "${YELLOW}" "${NC}"
