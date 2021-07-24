@@ -10,8 +10,11 @@ import datetime
 
 filepath = "../../files/"
 previous_data = None
-for filename in os.listdir(filepath):
+data_list = os.listdir(filepath) # return an arbitrary sorted list of files in the directory
+data_list.sort() # sort list regain the lexicographic order for the output by its timestamps
+for filename in data_list:
   if filename.startswith("wrfout"):
+    print("Creating output for: %s" % filename)
     wrf_data = Nio.open_file(filepath + filename + ".nc")  # Must add ".nc" suffix for Nio.open_file
     timestamp = datetime.datetime.strptime(filename.split("d01_")[1], "%Y-%m-%d_%H:%M:%S")
     
