@@ -80,8 +80,8 @@ def print_comp_for_timestamp(wrf_data, timestamp, filepath):
   pplot = Ngl.contour(wks_comp,slp,p_res)
   vector = Ngl.vector(wks_comp,u,v,uv_res)
 
-  Ngl.overlay(tplot, pplot)
   Ngl.overlay(tplot, vector)
+  Ngl.overlay(tplot, pplot)
   Ngl.maximize_plot(wks_comp, tplot)
   Ngl.draw(tplot)
   Ngl.frame(wks_comp)
