@@ -5,7 +5,7 @@ import comp_lib, rain_lib, thunderstorm_lib
 import datetime
 
 # main run script for plotting composite plots based on the *.nc data of a model run
-# version: v0.1.4
+# version: v0.1.5
 # created by Benjamin Held, December 2019
 
 filepath = "../../files/"
