@@ -10,11 +10,13 @@ load_zipfile () {
 	rm "${FILE_NAME}.zip"
 }
 
-# Downloading detailed coastlines
-NGL_PATH="${HOME}/.conda/envs/wrf_env/lib/python3.7/site-packages/ngl/ncarg/rangs"
+# Issue 23: Since the environment is newly created there should be only one python folder
+# therefor the command should directly expand to the one python version present
+NGL_PATH="${HOME}/.conda/envs/wrf_env/lib/python*/site-packages/ngl/ncarg/rangs"
 mkdir "${NGL_PATH}"
 cd "${NGL_PATH}" || exit 1
 
+# Downloading detailed coastlines
 load_zipfile "rangs(0)"
 load_zipfile "rangs(1)"
 load_zipfile "rangs(2)"
