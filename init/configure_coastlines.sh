@@ -12,7 +12,7 @@ load_zipfile () {
 
 # Issue 23: Since the environment is newly created there should be only one python folder
 # therefor the command should directly expand to the one python version present
-NGL_PATH="${HOME}/.conda/envs/wrf_env/lib/python*/site-packages/ngl/ncarg/rangs"
+NGL_PATH=`${HOME}/.conda/envs/wrf_env/lib/python*/site-packages/ngl/ncarg/rangs`
 mkdir "${NGL_PATH}"
 cd "${NGL_PATH}" || exit 1
 
