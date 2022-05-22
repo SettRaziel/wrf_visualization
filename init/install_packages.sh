@@ -1,19 +1,21 @@
 #!/bin/sh
 
+set -e
+
 # define terminal colors
 . ./terminal_color.sh
 
 # prepare folders
 SCRIPT_PATH=$(pwd)
 mkdir "${HOME}/aur_packages"
-cd "${HOME}/aur_packages" || exit 1
+cd "${HOME}/aur_packages"
 
 # getting yay and install if necessary
 git clone https://aur.archlinux.org/yay.git
-cd yay || exit 1
+cd yay
 git pull
 makepkg -si --noconfirm --needed
-cd .. || exit 1
+cd ..
 
 # installing additional packeges
 printf "%b\\nInstalling required packages: %b\\n" "${YELLOW}" "${NC}"
@@ -39,4 +41,4 @@ fi
 sudo pacman --noconfirm -Rsn $(sudo pacman -Qdtq)
 
 # returning to script path
-cd "${SCRIPT_PATH}" || exit 1
+cd "${SCRIPT_PATH}"
