@@ -54,11 +54,16 @@ The project is splitted in two parts:
     * air temperature and dew point 2 m above ground in [degree Celsius]
 
 ## Troubleshooting
-Initialization:
+### Initialization
 * running the command to set up the conda environment takes time due to the 
   [package enviroment](https://www.anaconda.com/blog/understanding-and-improving-condas-performance).
   Current test runs require roughly half an hour on a single core virtual machine. If the command takes more
   then two hours try to use the debug option `--verbose` twice to check for issues with the command
+
+### Output generation
+* creating meteograms for model output with less then 24 hours of forecast time leads to segmentation fault.
+  With [#26](https://github.com/SettRaziel/wrf_visualization/issues/26) it needs to be checked where this error
+  comes from and how to resolve it. Until that make sure the forecast time of your model is greater than 24 hours
 
 ## License
 see LICENSE
