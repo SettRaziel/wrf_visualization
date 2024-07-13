@@ -7,7 +7,7 @@ set -e
 
 load_zipfile () {
   FILE_NAME=${1}
-  wget "https://www.io-warnemuende.de/tl_files/staff/rfeistel/download/${FILE_NAME}.zip"
+  wget "https://www.io-warnemuende.de/files/staff/rfeistel/download/${FILE_NAME}.zip"
   unzip "${FILE_NAME}.zip"
   rm "${FILE_NAME}.zip"
 }
