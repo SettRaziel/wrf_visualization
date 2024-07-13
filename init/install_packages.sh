@@ -14,7 +14,9 @@ fi
 cd "${HOME}/aur_packages"
 
 # getting yay and install if necessary
-git clone https://aur.archlinux.org/yay.git
+if ! [ -d "./yay" ]; then
+  git clone https://aur.archlinux.org/yay.git
+fi
 cd yay
 git pull
 makepkg -si --noconfirm --needed
