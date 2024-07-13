@@ -7,7 +7,10 @@ set -e
 
 # prepare folders
 SCRIPT_PATH=$(pwd)
-mkdir "${HOME}/aur_packages"
+# check if directory already exists and create if necessary
+if ! [ -d "${HOME}/aur_packages" ]; then
+  mkdir "${HOME}/aur_packages"
+fi
 cd "${HOME}/aur_packages"
 
 # getting yay and install if necessary
